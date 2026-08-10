@@ -6,6 +6,13 @@ one real TikTok clip exists today). Where the aspirational brief called for thin
 this business can't yet support honestly (video hero, full checkout flow), this
 guide substitutes the closest achievable equivalent rather than faking it.
 
+Positioning note (revised): earlier copy over-narrowed the brand to "skull cap
+wigs" as the whole identity. Her real content (straightening, layering, custom
+installs, curls, multiple colors/textures) is broader than one construction type.
+Copy now leads with wigs + styling generally; "skull cap" only appears where it's
+the literal name of one specific real product (Honey Blonde), not as the site's
+overall category.
+
 ---
 
 ## 1. Palette — Burgundy & White

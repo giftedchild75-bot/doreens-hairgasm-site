@@ -46,6 +46,12 @@ window.SITE_CONFIG = {
       image: "assets/products/product-layering-service.jpg",
     },
     {
+      name: "Auburn Curls",
+      desc: "Warm auburn tones in full, bouncy curls with a natural lace part — soft definition front to back.",
+      price: "Ask for price",
+      image: "assets/products/product-auburn-curls.jpg",
+    },
+    {
       name: "Skull Cap Wig — Honey Blonde",
       desc: "A warm, sun-kissed blonde with soft, natural movement — glueless skull cap fit for a seamless, all-day wear.",
       price: "Ask for price",
