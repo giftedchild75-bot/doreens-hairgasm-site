@@ -777,7 +777,12 @@ section { padding: 128px 0; }
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-float-sm);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s ease;
 }
+.tiktok-embed-wrap:hover { transform: translateY(-6px); box-shadow: var(--shadow-float); }
+.tiktok-embed-wrap:hover .tiktok-play { background: rgba(255, 255, 255, 0.2); }
 .tiktok-ambient {
   position: absolute;
   inset: 0;
@@ -850,7 +855,6 @@ section { padding: 128px 0; }
   background: linear-gradient(180deg, rgba(34,5,15,0.05) 0%, rgba(34,5,15,0.55) 100%);
   pointer-events: none;
 }
-.tiktok-embed-wrap .tiktok-embed { position: relative; z-index: 1; }
 
 /* ---------- Order / CTA band ---------- */
 .order-band {

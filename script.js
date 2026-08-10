@@ -21,6 +21,10 @@
   const ig = document.getElementById("contact-ig");
   if (ig) ig.href = cfg.instagramUrl;
 
+  // Featured "Watch the Install" card links straight to the specific video, not just the profile
+  const featuredCard = document.getElementById("tiktok-embed-wrap");
+  if (featuredCard) featuredCard.href = cfg.featuredTikTokVideoUrl || cfg.tiktokUrl;
+
   // Location
   const loc = document.getElementById("contact-location");
   if (loc) loc.textContent = cfg.location;
@@ -67,19 +71,6 @@
       </div>`
       )
       .join("");
-  }
-
-  // TikTok embed
-  const bq = document.getElementById("tiktok-blockquote");
-  if (bq && cfg.featuredTikTokVideoUrl) {
-    const match = cfg.featuredTikTokVideoUrl.match(/video\/(\d+)/);
-    const videoId = match ? match[1] : "";
-    bq.setAttribute("cite", cfg.featuredTikTokVideoUrl);
-    bq.setAttribute("data-video-id", videoId);
-    const section = bq.querySelector("section");
-    if (section) {
-      section.innerHTML = `<a target="_blank" rel="noopener" title="@${cfg.tiktokHandle}" href="${cfg.tiktokUrl}">@${cfg.tiktokHandle}</a>`;
-    }
   }
 
   // Find Your Shade — front-end-only match tool, routes to WhatsApp with context

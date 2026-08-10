@@ -93,13 +93,14 @@ exist.
    WhatsApp, this just routes the customer there with context instead of a cold DM.
    Carries `04`.
 5. **Why Us** — unchanged (numbered glass tiles). Section-head now carries `05`.
-6. **Featured TikTok** — real embed. Section-head carries `06`. Background is a
-   designed ambient composition (pulsing glow reusing the hero's spotlight
+6. **Featured TikTok** — Section-head carries `06`. TikTok's own oEmbed widget
+   was tried and dropped: in practice it rendered as a blank white box on top
+   of the designed background, which is worse than no embed at all. The card
+   is now a plain link (`<a>`) straight to the specific featured video, styled
+   with the same ambient composition (pulsing glow reusing the hero's spotlight
    technique, a play-icon motif with the same pulse-ring animation as the
-   floating WhatsApp button, a faint crown watermark) rather than a photo —
-   deliberately not filling this with a mismatched/unrelated image just to
-   avoid an empty look. Sits behind the real TikTok embed (z-index 0 vs. 1)
-   so it doesn't conflict if/when TikTok's own embed script renders on top.
+   floating WhatsApp button, a faint crown watermark) — designed content that
+   IS the click target, not a backdrop hidden behind a widget.
 7. **FAQ** *(new)* — plain stacked list, hairline dividers, carries `07`. Answers
    the top real objections (human hair confirmation, price, delivery, customization,
    longevity) honestly — every unconfirmed spec routes to "message us" rather than
