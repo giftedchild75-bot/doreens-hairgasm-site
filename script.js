@@ -83,7 +83,7 @@
   const RECOMMEND_BY_UNDERTONE = {
     cool: "Straightening Service",
     warm: "Skull Cap Wig — Honey Blonde",
-    neutral: "Layering Service",
+    neutral: "Custom Install",
   };
 
   function updateShadeResult() {
