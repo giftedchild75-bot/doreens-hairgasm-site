@@ -11,8 +11,8 @@ window.SITE_CONFIG = {
   // --- Contact / ordering channels ---
   whatsappNumber: "2349130213524", // digits only, country code first, no + or spaces
   whatsappDefaultMessage: "Hi Doreen! I'd love to place an order 💛",
-  instagramHandle: "doreens.hairgasm", // <-- confirm this is correct
-  instagramUrl: "https://www.instagram.com/doreens.hairgasm",
+  instagramHandle: "doreens_hairgasm",
+  instagramUrl: "https://www.instagram.com/doreens_hairgasm",
   tiktokHandle: "doreens.hairgasm",
   tiktokUrl: "https://www.tiktok.com/@doreens.hairgasm",
   email: "", // <-- add if you take email orders, leave blank to hide
