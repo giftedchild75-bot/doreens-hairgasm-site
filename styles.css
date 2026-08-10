@@ -78,7 +78,8 @@ img { max-width: 100%; display: block; }
 header.nav {
   position: sticky;
   top: 14px;
-  z-index: 50;
+  z-index: 57; /* above .mobile-menu-backdrop (55) and .mobile-menu (56) so the
+                  toggle button stays clickable to CLOSE the menu, not just to open it */
   padding: 0 16px;
 }
 .nav-inner {
