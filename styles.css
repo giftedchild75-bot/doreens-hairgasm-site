@@ -574,7 +574,15 @@ section { padding: 128px 0; }
   align-items: center;
   justify-content: space-between;
 }
-.price { font-size: 13px; color: var(--burgundy); letter-spacing: 0.04em; }
+.price {
+  font-size: 13px;
+  color: var(--burgundy);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.price:hover { color: var(--burgundy-deep); border-color: var(--burgundy-deep); }
 .mini-link {
   font-size: 11px;
   letter-spacing: 0.08em;

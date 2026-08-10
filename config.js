@@ -40,12 +40,6 @@ window.SITE_CONFIG = {
       image: "assets/products/product-custom-install.jpg",
     },
     {
-      name: "Layering Service",
-      desc: "Rich wine tones cut into soft, bouncy layers — the dimension and movement from Doreen's own layering service, styled for standout color without sacrificing comfort.",
-      price: "Ask for price",
-      image: "assets/products/product-layering-service.jpg",
-    },
-    {
       name: "Auburn Curls",
       desc: "Warm auburn tones in full, bouncy curls with a natural lace part — soft definition front to back.",
       price: "Ask for price",

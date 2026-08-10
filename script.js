@@ -6,6 +6,11 @@
     return `https://wa.me/${cfg.whatsappNumber}?text=${msg}`;
   }
 
+  function priceLink(name) {
+    const msg = encodeURIComponent(`Hi Doreen! What's the price for ${name}?`);
+    return `https://wa.me/${cfg.whatsappNumber}?text=${msg}`;
+  }
+
   // Wire up WhatsApp CTAs
   document.querySelectorAll("#nav-whatsapp, #hero-whatsapp, #order-whatsapp, #float-whatsapp, #mobile-whatsapp")
     .forEach((el) => (el.href = waLink()));
@@ -23,7 +28,7 @@
   // Marquee strip
   const stripItems = [
     "Glueless Fit",
-    "Skull Cap Wigs",
+    "Wigs & Styling",
     cfg.location,
     "Order on WhatsApp",
     "New Colors Weekly",
@@ -55,7 +60,7 @@
           <h3>${p.name}</h3>
           <p class="desc">${p.desc}</p>
           <div class="card-foot">
-            <span class="price">${p.price}</span>
+            <a class="price" href="${priceLink(p.name)}" target="_blank" rel="noopener">${p.price}</a>
             <a class="mini-link" href="${waLink()}" target="_blank" rel="noopener">Order</a>
           </div>
         </div>
