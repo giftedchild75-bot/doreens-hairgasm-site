@@ -34,16 +34,16 @@ window.SITE_CONFIG = {
       image: "assets/products/product-straightening-service.jpg",
     },
     {
-      name: "Layering Service",
-      desc: "Rich wine tones cut into soft, bouncy layers — the dimension and movement from Doreen's own layering service, styled for standout color without sacrificing comfort.",
-      price: "Ask for price",
-      image: "assets/products/product-layering-service.jpg",
-    },
-    {
       name: "Custom Install",
       desc: "Your color, cut, and texture — booked as a custom install and finished with the same glueless precision as every piece. Bring a reference photo or trust us to style it for you.",
       price: "Ask for price",
       image: "assets/products/product-custom-install.jpg",
+    },
+    {
+      name: "Layering Service",
+      desc: "Rich wine tones cut into soft, bouncy layers — the dimension and movement from Doreen's own layering service, styled for standout color without sacrificing comfort.",
+      price: "Ask for price",
+      image: "assets/products/product-layering-service.jpg",
     },
     {
       name: "Skull Cap Wig — Honey Blonde",
