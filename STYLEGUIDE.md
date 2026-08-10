@@ -87,7 +87,12 @@ exist.
    Carries `04`.
 5. **Why Us** — unchanged (numbered glass tiles). Section-head now carries `05`.
 6. **Featured TikTok** — unchanged (real embed). Section-head now carries `06`.
-7. **Order band / Footer** — unchanged, CTA hierarchy applied. No numeral — this
+7. **FAQ** *(new)* — plain stacked list, hairline dividers, carries `07`. Answers
+   the top real objections (human hair confirmation, price, delivery, customization,
+   longevity) honestly — every unconfirmed spec routes to "message us" rather than
+   asserting a number or fact the business hasn't actually provided. Placed right
+   before the order CTA so objections are handled before the ask, not after.
+8. **Order band / Footer** — unchanged, CTA hierarchy applied. No numeral — this
    section has no eyebrow/section-head slot to attach one to, and restructuring
    it just to force a numeral in would trade coherence for completionism.
 

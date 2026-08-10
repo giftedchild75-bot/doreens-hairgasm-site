@@ -704,6 +704,32 @@ section { padding: 128px 0; }
 .why-item h3 { font-family: var(--serif); font-size: 18px; margin: 0 0 10px; color: var(--ink); }
 .why-item p { font-size: 13px; color: var(--muted); margin: 0; }
 
+/* ---------- FAQ (plain stacked list, hairline dividers) ---------- */
+.faq-list {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.faq-item {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-item h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.faq-item p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.7;
+}
+
 /* ---------- Featured video ---------- */
 .feature-video { padding: 100px 0; }
 .feature-inner {
@@ -873,7 +899,7 @@ footer .fine { font-size: 11px; color: var(--muted); }
 .shade-steps [data-reveal]:nth-child(3) { transition-delay: 0.2s; }
 
 /* ---------- Anchor scroll offset (clears the floating nav pill) ---------- */
-#collection, #shade-finder, #why, #featured, #order {
+#collection, #shade-finder, #why, #featured, #faq, #order {
   scroll-margin-top: 110px;
 }
 
