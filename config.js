@@ -34,6 +34,12 @@ window.SITE_CONFIG = {
       image: "assets/products/product-straightening-service.jpg",
     },
     {
+      name: "Layering Service",
+      desc: "Rich wine tones cut into soft, bouncy layers — the dimension and movement from Doreen's own layering service, styled for standout color without sacrificing comfort.",
+      price: "Ask for price",
+      image: "assets/products/product-layering-service.jpg",
+    },
+    {
       name: "Custom Install",
       desc: "Your color, cut, and texture — booked as a custom install and finished with the same glueless precision as every piece. Bring a reference photo or trust us to style it for you.",
       price: "Ask for price",
@@ -44,12 +50,6 @@ window.SITE_CONFIG = {
       desc: "A warm, sun-kissed blonde with soft, natural movement — glueless skull cap fit for a seamless, all-day wear.",
       price: "Ask for price",
       image: "assets/products/product-honey-blonde.jpg",
-    },
-    {
-      name: "Layering Service",
-      desc: "Rich wine tones cut into soft, bouncy layers — the dimension and movement from Doreen's own layering service, styled for standout color without sacrificing comfort.",
-      price: "Ask for price",
-      image: "assets/products/product-layering-service.jpg",
     },
   ],
 };
