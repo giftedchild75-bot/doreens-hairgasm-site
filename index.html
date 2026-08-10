@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Doreen's Hairgasm — Luxury Wigs, Flawless Fit</title>
+<meta name="description" content="Doreen's Hairgasm — glueless skull cap wigs in Owerri, Nigeria. Order on WhatsApp or shop the latest looks on TikTok." />
+<meta name="theme-color" content="#430A1A" />
+
+<!-- Favicon: inline SVG of the wordmark's crown, no separate asset needed -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23430A1A'/%3E%3Cpath d='M1 14 L2.5 4 L7 9 L12 2 L17 9 L21.5 4 L23 14 Z' fill='%23F7EDE1' transform='translate(4,8)'/%3E%3C/svg%3E" />
+
+<!-- Open Graph / Twitter card — this business's whole funnel is shared links (WhatsApp, IG, TikTok),
+     so how the link preview looks matters. og:image below is a real product photo.
+     NOTE: once this is live on a real domain, add an absolute og:url + og:image
+     (e.g. https://doreenshairgasm.com/...) — relative URLs are not reliable for link previews. -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Doreen's Hairgasm" />
+<meta property="og:title" content="Doreen's Hairgasm — Luxury Wigs, Flawless Fit" />
+<meta property="og:description" content="Glueless skull cap wigs in Owerri, Nigeria. Order on WhatsApp or shop the latest looks on TikTok." />
+<meta property="og:image" content="assets/products/product-straightening-service.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Doreen's Hairgasm — Luxury Wigs, Flawless Fit" />
+<meta name="twitter:description" content="Glueless skull cap wigs in Owerri, Nigeria. Order on WhatsApp or shop the latest looks on TikTok." />
+<meta name="twitter:image" content="assets/products/product-straightening-service.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Alex+Brush&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<div class="announce" id="announce">Now booking custom installs — DM to reserve your slot</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#top">
+      <svg class="logo-crown" viewBox="0 0 24 16" aria-hidden="true"><path d="M1 14 L2.5 4 L7 9 L12 2 L17 9 L21.5 4 L23 14 Z" /></svg>
+      <span class="logo-text"><span class="logo-name">Doreen's</span><span class="logo-script">Hairgasm</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#collection">Collection</a>
+      <a href="#shade-finder">Find Your Shade</a>
+      <a href="#featured">On TikTok</a>
+      <a href="#order">Order</a>
+    </nav>
+    <a class="nav-cta" id="nav-whatsapp" href="#">Order on WhatsApp</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <nav class="mobile-menu-links">
+    <a href="#collection">Collection</a>
+    <a href="#shade-finder">Find Your Shade</a>
+    <a href="#featured">On TikTok</a>
+    <a href="#order">Order</a>
+  </nav>
+  <a class="btn btn-primary mobile-menu-cta" id="mobile-whatsapp" href="#">Order on WhatsApp</a>
+</div>
+<div class="mobile-menu-backdrop" id="mobile-menu-backdrop" hidden></div>
+
+<section class="hero" id="top">
+  <div class="hero-media">
+    <img class="hero-media-img" src="assets/hero-install.jpg" alt="Doreen's Hairgasm burgundy layered wig, styled on display" />
+  </div>
+  <div class="hero-glow" id="hero-glow" aria-hidden="true"></div>
+  <div class="hero-index">01 / 04</div>
+  <div class="hero-overlay">
+    <div class="hero-copy">
+      <div class="eyebrow">Skull Cap Wigs · Custom Installs</div>
+      <h1>Luxury Hair,<br /><em>Effortless</em> Confidence.</h1>
+      <p class="lead">Glueless skull cap wigs built for a flawless natural fit — from affordable everyday essentials to exotic showstoppers, priced to match your budget. Handpicked, install-ready, and made to turn heads.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" id="hero-whatsapp" href="#">Order on WhatsApp</a>
+        <a class="link-underline" id="hero-tiktok" href="#" target="_blank" rel="noopener">Watch on TikTok</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-inner">
+    <div class="strip-track" id="strip-track"></div>
+  </div>
+</div>
+
+<section id="collection">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div class="section-num" aria-hidden="true">03</div>
+      <div class="section-eyebrow">The Collection</div>
+      <h2>Signature Skull Cap Wigs</h2>
+      <p>Every piece is fitted for a seamless, glueless install.</p>
+    </div>
+    <div class="grid-products" id="product-grid"></div>
+  </div>
+</section>
+
+<section id="shade-finder" class="shade-finder">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div class="section-num" aria-hidden="true">04</div>
+      <div class="section-eyebrow">Personal Styling</div>
+      <h2>Find Your Shade</h2>
+      <p>Answer three quick questions for a recommended starting point — then finish the fitting over WhatsApp.</p>
+    </div>
+    <div class="shade-steps" id="shade-steps">
+      <div class="shade-step" data-reveal>
+        <h3>1 · Undertone</h3>
+        <div class="swatch-row" data-group="undertone">
+          <button class="swatch" data-value="warm" aria-label="Warm" style="--sw:#caa06b"></button>
+          <button class="swatch" data-value="cool" aria-label="Cool" style="--sw:#453a33"></button>
+          <button class="swatch" data-value="neutral" aria-label="Neutral" style="--sw:#8a7256"></button>
+        </div>
+      </div>
+      <div class="shade-step" data-reveal>
+        <h3>2 · Length</h3>
+        <div class="swatch-row" data-group="length">
+          <button class="pill-choice" data-value="bob">Bob</button>
+          <button class="pill-choice" data-value="mid">Mid-Length</button>
+          <button class="pill-choice" data-value="long">Long</button>
+        </div>
+      </div>
+      <div class="shade-step" data-reveal>
+        <h3>3 · Texture</h3>
+        <div class="swatch-row" data-group="texture">
+          <button class="pill-choice" data-value="straight">Straight</button>
+          <button class="pill-choice" data-value="wavy">Wavy</button>
+          <button class="pill-choice" data-value="curly">Curly</button>
+        </div>
+      </div>
+    </div>
+    <div class="shade-result" id="shade-result" hidden>
+      <p class="shade-result-label">Recommended starting point</p>
+      <h3 id="shade-result-name"></h3>
+      <a class="btn btn-primary" id="shade-result-cta" href="#" target="_blank" rel="noopener">Continue on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <div class="section-num" aria-hidden="true">05</div>
+      <div class="section-eyebrow">The Difference</div>
+      <h2>Why Clients Choose Doreen's</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item" data-reveal>
+        <div class="num">01</div>
+        <h3>Glueless, Skull Cap Fit</h3>
+        <p>Designed to sit snug without adhesive — comfortable for all-day wear.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="num">02</div>
+        <h3>Curated Colors</h3>
+        <p>From jet black to honey blonde and wine — a shade for every mood.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="num">03</div>
+        <h3>Real Client Results</h3>
+        <p>See real installs and transformations on our TikTok — no filters, just fit.</p>
+      </div>
+      <div class="why-item" data-reveal>
+        <div class="num">04</div>
+        <h3>Personal Service</h3>
+        <p>Just say hello on WhatsApp and tell us your budget — no pressure, no obligation. We'll help you find the perfect match, from affordable to exotic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="feature-video" id="featured">
+  <div class="container feature-inner" data-reveal>
+    <div class="feature-text">
+      <div class="section-num" aria-hidden="true">06</div>
+      <div class="section-eyebrow">As Seen On TikTok</div>
+      <h2>Watch the Install</h2>
+      <p>Follow along on TikTok for real, unfiltered wig installs, styling tips, and new arrivals as they drop.</p>
+      <a class="btn btn-primary" id="feature-tiktok" href="#" target="_blank" rel="noopener">Follow @doreens.hairgasm</a>
+    </div>
+    <div class="tiktok-embed-wrap" id="tiktok-embed-wrap">
+      <blockquote class="tiktok-embed" id="tiktok-blockquote" data-video-id="" style="max-width:340px;min-width:280px;" >
+        <section></section>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="order-band" id="order">
+  <div class="container">
+    <div class="order-card" data-reveal>
+      <h2>Ready For Your<br />New Look?</h2>
+      <p>Not sure exactly what you want yet? Send a quick message on WhatsApp — tell us your budget and the vibe you're after, from affordable to exotic, and we'll take it from there.</p>
+      <a class="btn btn-primary" id="order-whatsapp" href="#">Order on WhatsApp</a>
+      <div class="contact-row">
+        <a id="contact-ig" href="#" target="_blank" rel="noopener">Instagram</a>
+        <a id="contact-tt" href="#" target="_blank" rel="noopener">TikTok</a>
+        <span id="contact-location"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <a class="logo" href="#top">
+      <svg class="logo-crown" viewBox="0 0 24 16" aria-hidden="true"><path d="M1 14 L2.5 4 L7 9 L12 2 L17 9 L21.5 4 L23 14 Z" /></svg>
+      <span class="logo-text"><span class="logo-name">Doreen's</span><span class="logo-script">Hairgasm</span></span>
+    </a>
+    <p class="foot-tagline">Your Hair, Your Crown</p>
+    <div class="foot-links">
+      <a href="#collection">Collection</a>
+      <a href="#why">Why Us</a>
+      <a href="#featured">TikTok</a>
+      <a href="#order">Order</a>
+    </div>
+    <p class="fine">© <span id="year"></span> Doreen's Hairgasm · Since 2021. All rights reserved.</p>
+  </div>
+</footer>
+
+<a class="float-wa" id="float-whatsapp" href="#" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16.01 3C9.38 3 4 8.38 4 15.01c0 2.3.62 4.45 1.7 6.3L4 29l7.86-1.65a11.9 11.9 0 0 0 4.15.75h.01c6.63 0 12.01-5.38 12.01-12.01C28.03 8.38 22.65 3 16.01 3zm7.02 17.06c-.3.85-1.7 1.62-2.37 1.72-.6.09-1.36.13-2.2-.14-.5-.16-1.15-.37-1.98-.73-3.48-1.5-5.75-5.03-5.93-5.26-.17-.23-1.42-1.89-1.42-3.6s.89-2.56 1.2-2.91c.31-.35.68-.44.9-.44s.45 0 .65.01c.21.01.49-.08.76.58.3.72.99 2.48 1.08 2.66.09.18.15.39.03.62-.12.23-.18.37-.35.56-.18.2-.37.44-.53.6-.18.18-.36.37-.16.72.2.35.9 1.48 1.93 2.4 1.33 1.19 2.45 1.55 2.8 1.73.35.18.56.15.76-.09.2-.24.87-1.01 1.1-1.36.23-.35.46-.29.77-.17.31.12 1.98.93 2.32 1.1.34.17.56.26.65.4.09.15.09.85-.21 1.7z"/></svg>
+</a>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+<script src="https://www.tiktok.com/embed.js"></script>
+</body>
+</html>
