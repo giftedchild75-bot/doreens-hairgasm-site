@@ -778,6 +778,71 @@ section { padding: 128px 0; }
   justify-content: center;
   box-shadow: var(--shadow-float-sm);
 }
+.tiktok-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  overflow: hidden;
+}
+.tiktok-ambient::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,169,187,0.3), rgba(109,16,41,0.12) 45%, transparent 72%);
+  animation: tiktok-glow-pulse 5s ease-in-out infinite;
+}
+@keyframes tiktok-glow-pulse {
+  0%, 100% { transform: scale(0.88); opacity: 0.65; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+.tiktok-watermark {
+  position: absolute;
+  width: 220px;
+  height: auto;
+  top: 14%;
+  fill: rgba(247, 237, 225, 0.06);
+  transform: rotate(-8deg);
+}
+.tiktok-play {
+  position: relative;
+  z-index: 1;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: hover-float 3.2s ease-in-out infinite;
+}
+.tiktok-play::before {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(232, 169, 187, 0.5);
+  animation: wa-pulse 3.4s ease-out infinite;
+}
+.tiktok-play svg { width: 26px; height: 26px; fill: var(--cream); margin-left: 3px; }
+.tiktok-ambient-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: rgba(247, 237, 225, 0.75);
+}
 .tiktok-embed-wrap::before {
   content: "";
   position: absolute;
@@ -927,6 +992,7 @@ footer .fine { font-size: 11px; color: var(--muted); }
     transform: none;
   }
   .hero-glow { display: none; }
+  .tiktok-ambient::before, .tiktok-play, .tiktok-play::before { animation: none; }
   .card, .btn, .nav-cta { transition-duration: 0.01ms; }
 }
 
