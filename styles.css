@@ -769,7 +769,9 @@ section { padding: 128px 0; }
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--line);
-  background: var(--burgundy-deep) url("assets/tiktok-featured-thumb.jpg") center / cover no-repeat;
+  background: var(--burgundy-deep)
+    radial-gradient(circle at 30% 20%, rgba(156,51,80,0.28), transparent 55%),
+    linear-gradient(160deg, #3d0a1a, #22050f);
   min-height: 560px;
   display: flex;
   align-items: center;

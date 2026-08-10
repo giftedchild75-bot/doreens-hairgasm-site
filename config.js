@@ -19,7 +19,7 @@ window.SITE_CONFIG = {
 
   // --- Location / delivery ---
   location: "Owerri, Nigeria", // <-- confirm
-  deliveryNote: "Delivery details — ADD: do you ship nationwide? local pickup only? delivery fee?",
+  deliveryNote: "We ship nationwide within Nigeria and internationally — message us for delivery timing and cost to your location.",
 
   // --- Featured real content (confirmed from the TikTok account) ---
   featuredTikTokVideoUrl: "https://www.tiktok.com/@doreens.hairgasm/video/7645349489930145031",
