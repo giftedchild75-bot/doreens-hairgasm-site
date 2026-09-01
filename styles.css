@@ -570,6 +570,23 @@ section { padding: 128px 0; }
   color: var(--ink);
 }
 .card-body p.desc { font-size: 13px; color: var(--muted); margin: 0 0 16px; min-height: 34px; }
+.spec-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+.spec-list li {
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  background: rgba(67, 10, 26, 0.06);
+  border: 1px solid rgba(67, 10, 26, 0.12);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
 .card-foot {
   display: flex;
   align-items: center;

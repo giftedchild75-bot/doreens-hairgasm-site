@@ -6,8 +6,8 @@
     return `https://wa.me/${cfg.whatsappNumber}?text=${msg}`;
   }
 
-  function priceLink(name) {
-    const msg = encodeURIComponent(`Hi Doreen! What's the price for ${name}?`);
+  function orderLink(name, price) {
+    const msg = encodeURIComponent(`Hi Doreen! I'd like to order the ${name} (${price}).`);
     return `https://wa.me/${cfg.whatsappNumber}?text=${msg}`;
   }
 
@@ -63,9 +63,14 @@
         <div class="card-body">
           <h3>${p.name}</h3>
           <p class="desc">${p.desc}</p>
+          ${
+            Array.isArray(p.specs) && p.specs.length
+              ? `<ul class="spec-list">${p.specs.map((s) => `<li>${s}</li>`).join("")}</ul>`
+              : ""
+          }
           <div class="card-foot">
-            <a class="price" href="${priceLink(p.name)}" target="_blank" rel="noopener">${p.price}</a>
-            <a class="mini-link" href="${waLink()}" target="_blank" rel="noopener">Order</a>
+            <span class="price">${p.price}</span>
+            <a class="mini-link" href="${orderLink(p.name, p.price)}" target="_blank" rel="noopener">Order</a>
           </div>
         </div>
       </div>`
