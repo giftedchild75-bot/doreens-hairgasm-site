@@ -1,5 +1,6 @@
 (function () {
   const cfg = window.SITE_CONFIG;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function waLink() {
     const msg = encodeURIComponent(cfg.whatsappDefaultMessage || "");
@@ -43,14 +44,26 @@
     track.innerHTML = html + html; // duplicate for seamless loop
   }
 
-  // Product gallery (horizontal scroll, kin-style numbered index)
+  // Product gallery — responsive grid with live search + sort
   const wigIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 10c0-4.4 3.6-8 8-8s8 3.6 8 8v3c0 .8-.5 1.4-1.2 1.7-1 .4-1.8 1.3-1.8 2.3v3c0 1.1-.9 2-2 2h-6c-1.1 0-2-.9-2-2v-3c0-1-.8-1.9-1.8-2.3C4.5 14.4 4 13.8 4 13v-3z"/></svg>`;
   const grid = document.getElementById("product-grid");
-  if (grid && Array.isArray(cfg.products)) {
-    grid.innerHTML = cfg.products
+  const searchInput = document.getElementById("catalog-search-input");
+  const sortSelect = document.getElementById("catalog-sort-select");
+  const countEl = document.getElementById("catalog-count");
+  const emptyEl = document.getElementById("catalog-empty");
+  const emptyTermEl = document.getElementById("catalog-empty-term");
+
+  function parsePrice(priceStr) {
+    const digits = String(priceStr || "").replace(/[^0-9]/g, "");
+    return digits ? parseInt(digits, 10) : 0;
+  }
+
+  function renderProducts(list, isFiltered) {
+    if (!grid) return;
+    grid.innerHTML = list
       .map(
         (p, i) => `
-      <div class="card" data-reveal style="transition-delay:${i * 90}ms">
+      <div class="card" data-reveal style="transition-delay:${Math.min(i, 8) * 70}ms">
         <div class="card-media">
           <span class="card-index">${String(i + 1).padStart(2, "0")} /</span>
           ${
@@ -76,6 +89,69 @@
       </div>`
       )
       .join("");
+
+    grid.querySelectorAll("img").forEach(wireImageFadeIn);
+    if (!reducedMotion && "IntersectionObserver" in window) {
+      grid.querySelectorAll("[data-reveal]").forEach((el) => cardRevealObserver.observe(el));
+    } else {
+      grid.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-revealed"));
+    }
+
+    if (countEl) {
+      countEl.textContent = isFiltered
+        ? `Showing ${list.length} of ${cfg.products.length} pieces`
+        : `${list.length} pieces in the collection`;
+    }
+    if (emptyEl) emptyEl.hidden = list.length !== 0;
+    grid.hidden = list.length === 0;
+  }
+
+  function updateCatalog() {
+    if (!grid || !Array.isArray(cfg.products)) return;
+    const term = (searchInput?.value || "").trim().toLowerCase();
+    const sortMode = sortSelect?.value || "default";
+
+    let list = !term
+      ? cfg.products.slice()
+      : cfg.products.filter((p) => {
+          const haystack = [p.name, p.desc, ...(Array.isArray(p.specs) ? p.specs : [])]
+            .join(" ")
+            .toLowerCase();
+          return haystack.includes(term);
+        });
+
+    if (sortMode === "price-asc") list.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+    else if (sortMode === "price-desc") list.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+    else if (sortMode === "name-asc") list.sort((a, b) => a.name.localeCompare(b.name));
+
+    if (emptyTermEl) emptyTermEl.textContent = searchInput?.value || "";
+    renderProducts(list, Boolean(term) || sortMode !== "default");
+  }
+
+  // Reveal-on-scroll observer, defined early so re-rendered cards (from search/sort) can reuse it
+  const cardRevealObserver =
+    !reducedMotion && "IntersectionObserver" in window
+      ? new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-revealed");
+                cardRevealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
+        )
+      : null;
+
+  if (grid && Array.isArray(cfg.products)) {
+    updateCatalog();
+    let searchDebounce;
+    searchInput?.addEventListener("input", () => {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(updateCatalog, 120);
+    });
+    sortSelect?.addEventListener("change", updateCatalog);
   }
 
   // Find Your Shade — front-end-only match tool, routes to WhatsApp with context
@@ -128,8 +204,6 @@
   // Footer year
   const year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
-
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Mobile menu
   const navToggle = document.getElementById("nav-toggle");

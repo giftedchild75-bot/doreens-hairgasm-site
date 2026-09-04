@@ -98,7 +98,23 @@
       <h2>Signature Styles</h2>
       <p>Straightening, layering, curls, custom installs, and more — every piece fitted for a seamless, glueless wear.</p>
     </div>
+    <div class="catalog-toolbar" data-reveal>
+      <div class="catalog-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="catalog-search-input" placeholder="Search by name or color…" autocomplete="off" />
+      </div>
+      <div class="catalog-sort">
+        <select id="catalog-sort-select" aria-label="Sort collection">
+          <option value="default">Featured order</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="name-asc">Name: A–Z</option>
+        </select>
+      </div>
+    </div>
+    <p class="catalog-count" id="catalog-count" aria-live="polite"></p>
     <div class="grid-products" id="product-grid"></div>
+    <p class="catalog-empty" id="catalog-empty" hidden>No pieces match “<span id="catalog-empty-term"></span>” — try another name or color, or just message us on WhatsApp and we'll help you find it.</p>
   </div>
 </section>
 
