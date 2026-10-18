@@ -170,6 +170,8 @@ export const customers = pgTable("customers", {
   name: text("name"),
   phone: text("phone"),
   passwordHash: text("password_hash"), // NULL for guest-only customers
+  // Order history is only shown once the address is proven to belong to the account holder.
+  emailVerifiedAt: timestamp("email_verified_at", { withTimezone: true }),
   createdAt: createdAt(),
   updatedAt: updatedAt(),
 });
@@ -212,8 +214,12 @@ export const sessions = pgTable(
   ],
 );
 
-export const passwordResets = pgTable("password_resets", {
+export const tokenPurpose = pgEnum("token_purpose", ["password_reset", "verify_email"]);
+
+/** Single-use, expiring tokens emailed to customers (stored hashed). */
+export const customerTokens = pgTable("customer_tokens", {
   tokenHash: text("token_hash").primaryKey(),
+  purpose: tokenPurpose("purpose").notNull(),
   customerId: uuid("customer_id")
     .notNull()
     .references(() => customers.id, { onDelete: "cascade" }),

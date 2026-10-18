@@ -11,6 +11,7 @@ import { drizzle as drizzlePglite } from "drizzle-orm/pglite";
 import { migrate as migratePglite } from "drizzle-orm/pglite/migrator";
 import { PGlite } from "@electric-sql/pglite";
 import { Pool } from "pg";
+import fs from "node:fs";
 import path from "node:path";
 import * as schema from "./schema";
 
@@ -24,6 +25,7 @@ let dbPromise: Promise<Db> | null = null;
 async function connect(url: string): Promise<Db> {
   if (url.startsWith("pglite:")) {
     const dir = url.slice("pglite:".length) || undefined;
+    if (dir) fs.mkdirSync(path.dirname(path.resolve(dir)), { recursive: true });
     const client = new PGlite(dir);
     const db = drizzlePglite(client, { schema });
     // Local embedded DB: keep it migrated automatically.

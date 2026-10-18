@@ -12,7 +12,7 @@ import { formatNaira } from "@/lib/money";
 import { paymentReference } from "@/lib/tokens";
 import * as paystack from "./paystack";
 import { queueEmail, renderEmail } from "./email";
-import { orderSummaryLines, releaseReservation, transitionOrder, getOrderItems, type Order } from "./orders";
+import { orderLink, orderSummaryLines, releaseReservation, transitionOrder, getOrderItems, type Order } from "./orders";
 import { audit } from "./audit";
 
 export async function startPayment(db: Db, order: Order) {
@@ -123,7 +123,7 @@ async function sendPaidEmails(db: Parameters<typeof queueEmail>[0], o: Order) {
     `Delivery: ${o.shippingMethodName} to ${o.addressLine1}, ${o.city}, ${o.region}.`,
     "We'll email you again when it ships.",
   ];
-  const { html, text } = renderEmail("Order confirmed", lines, { label: "View your order", url: `${env.siteUrl}/account/orders` });
+  const { html, text } = renderEmail("Order confirmed", lines, { label: "View your order", url: orderLink(o) });
   await queueEmail(db, { to: o.email, template: "order_paid", subject: `Order ${o.reference} confirmed`, html, text, orderId: o.id, dedupeKey: `paid:${o.id}` });
 
   const notify = process.env.STORE_NOTIFY_EMAIL;

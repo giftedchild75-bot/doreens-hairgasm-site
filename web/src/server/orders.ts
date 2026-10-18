@@ -22,7 +22,8 @@ import {
   payments,
   productVariants,
 } from "@/db/schema";
-import { orderReference, randomToken, sha256 } from "@/lib/tokens";
+import { randomUUID } from "node:crypto";
+import { orderLinkToken, orderReference, safeEqualHex, sha256 } from "@/lib/tokens";
 import { env } from "@/lib/env";
 import { formatNaira } from "@/lib/money";
 import { quoteCart, quoteInputSchema, type Executor } from "./pricing";
@@ -84,12 +85,7 @@ export async function createOrder(
 
   // Idempotency: a double-clicked "Place order" returns the first order.
   const [existing] = await db.select().from(orders).where(eq(orders.checkoutKey, input.checkoutKey)).limit(1);
-  if (existing) {
-    // Re-issue a fresh access token for the same browser session.
-    const accessToken = randomToken();
-    await db.update(orders).set({ accessTokenHash: sha256(accessToken) }).where(eq(orders.id, existing.id));
-    return { order: { ...existing, accessTokenHash: sha256(accessToken) }, accessToken, reused: true };
-  }
+  if (existing) return { order: existing, accessToken: orderLinkToken(existing.id), reused: true };
 
   return db.transaction(async (tx) => {
     const quote = await quoteCart(tx, input, opts.now);
@@ -134,11 +130,13 @@ export async function createOrder(
       customerId = c.id;
     }
 
-    const accessToken = randomToken();
+    const orderId = randomUUID();
+    const accessToken = orderLinkToken(orderId);
     const hasTracked = quote.lines.some((l) => l.stockTracked);
     const [order] = await tx
       .insert(orders)
       .values({
+        id: orderId,
         reference: orderReference(),
         customerId,
         email: input.email,
@@ -287,7 +285,12 @@ export async function getOrderItems(db: Executor, orderId: string) {
 
 /** Guest access check for /orders/[reference]?t=… links. */
 export function orderAccessOk(order: Pick<Order, "accessTokenHash">, token: string | null | undefined) {
-  return !!token && sha256(token) === order.accessTokenHash;
+  return !!token && safeEqualHex(sha256(token), order.accessTokenHash);
+}
+
+/** Link a guest can use to view their order (included in every order email). */
+export function orderLink(order: Pick<Order, "id" | "reference">) {
+  return `${env.siteUrl}/orders/${order.reference}?t=${orderLinkToken(order.id)}`;
 }
 
 // ---------------------------------------------------------------- staff actions
@@ -314,7 +317,7 @@ export async function staffUpdateStatus(
   const updated = await transitionOrder(db, o, to, `Marked ${to} by staff`, extra, actorAdminId);
   if (!updated) throw new Error("Order changed while you were editing — reload and try again.");
 
-  const link = `${env.siteUrl}/account/orders`;
+  const link = orderLink(o);
   if (to === "shipped") {
     const lines = [
       `Good news — order ${o.reference} is on its way via ${o.shippingMethodName}.`,
@@ -322,7 +325,7 @@ export async function staffUpdateStatus(
         ? `Tracking: ${updated.carrier ? updated.carrier + " " : ""}${updated.trackingNumber}`
         : "We'll be in touch on WhatsApp with delivery updates.",
     ];
-    const { html, text } = renderEmail("Your order has shipped", lines, { label: "View your orders", url: link });
+    const { html, text } = renderEmail("Your order has shipped", lines, { label: "Track your order", url: link });
     await queueEmail(db, { to: o.email, template: "order_shipped", subject: `Your order ${o.reference} has shipped`, html, text, orderId: o.id, dedupeKey: `shipped:${o.id}` });
   } else if (to === "delivered") {
     const { html, text } = renderEmail("Your order was delivered", [
