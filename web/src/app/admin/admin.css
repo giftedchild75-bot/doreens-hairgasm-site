@@ -1,0 +1,56 @@
+/* Admin UI — same tokens as the storefront, denser layout. */
+.admin { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; background: #fbf7f8; }
+.admin-side { background: var(--burgundy-deep); color: var(--cream); padding: 24px 16px; display: flex; flex-direction: column; gap: 4px; }
+.admin-side .brand { font-family: var(--serif); font-size: 18px; margin: 0 8px 20px; color: var(--cream); }
+.admin-side a { padding: 9px 12px; border-radius: 10px; font-size: 14px; color: rgba(247, 237, 225, 0.85); }
+.admin-side a:hover, .admin-side a[aria-current="page"] { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.admin-side .who { margin-top: auto; font-size: 12px; opacity: 0.8; padding: 8px 12px; }
+.admin-side button { background: none; border: 1px solid rgba(255,255,255,.3); color: var(--cream); border-radius: 999px; padding: 6px 14px; cursor: pointer; font: inherit; font-size: 12px; margin: 4px 12px; }
+.admin-main { padding: 32px 40px 80px; max-width: 1200px; width: 100%; }
+.admin-main h1 { font-family: var(--serif); font-weight: 500; font-size: 30px; margin: 0 0 20px; }
+.admin-main h2 { font-family: var(--serif); font-weight: 500; font-size: 20px; margin: 28px 0 12px; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px; margin-bottom: 20px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.kpi { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.kpi .label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.kpi .value { font-family: var(--serif); font-size: 26px; margin-top: 4px; }
+.kpi .sub { font-size: 12px; color: var(--muted); }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tbl th { text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.tbl td { padding: 10px; border-bottom: 1px solid var(--onyx-line); vertical-align: middle; }
+.tbl tr:hover td { background: #fdf8f9; }
+.tbl img { width: 40px; height: 52px; object-fit: cover; border-radius: 6px; }
+.admin-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px 18px; align-items: end; }
+.admin-form .wide { grid-column: 1 / -1; }
+.admin-form label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.admin-form input:not([type=checkbox]), .admin-form select, .admin-form textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font: inherit; font-size: 14px; background: #fff; }
+.admin-form textarea { min-height: 90px; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 14px; }
+.check input { accent-color: var(--burgundy); }
+.btn-sm { padding: 8px 16px !important; font-size: 11px !important; }
+.toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; margin-bottom: 16px; }
+.toolbar input, .toolbar select { border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; font: inherit; font-size: 14px; background: #fff; }
+.badge { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 999px; background: var(--blush); color: var(--burgundy); text-transform: capitalize; white-space: nowrap; }
+.badge.warn { background: #fff4e0; color: #8a5a00; }
+.badge.bad { background: #fdecec; color: #8c1d18; }
+.badge.good { background: #edf7ee; color: #1e5e22; }
+.grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: start; }
+.img-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.img-row figure { margin: 0; width: 110px; }
+.img-row img { width: 110px; height: 146px; object-fit: cover; border-radius: 10px; }
+.img-row .ops { display: flex; gap: 4px; margin-top: 6px; }
+.img-row .ops button { flex: 1; border: 1px solid var(--line); background: #fff; border-radius: 8px; cursor: pointer; padding: 4px; }
+details.panel > summary { cursor: pointer; font-weight: 500; }
+@media (max-width: 900px) {
+  .admin { grid-template-columns: 1fr; }
+  .admin-side { flex-direction: row; flex-wrap: wrap; padding: 12px; }
+  .admin-side .brand { width: 100%; margin-bottom: 8px; }
+  .admin-side .who { margin-top: 0; }
+  .admin-main { padding: 20px 16px 60px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .tbl { display: block; overflow-x: auto; }
+}
+/* Labels wrap their controls so every field has an accessible name. */
+.admin-form label.fld { display: block; margin: 0; }
+.admin-form label.fld > span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.admin-form label.fld input, .admin-form label.fld select, .admin-form label.fld textarea { color: var(--ink); }

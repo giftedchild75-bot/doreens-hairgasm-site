@@ -11,6 +11,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // PGlite ships WASM + data files that must not be bundled.
   serverExternalPackages: ["@electric-sql/pglite"],
+  // Product photo uploads go through a server action. Vercel caps function
+  // request bodies at 4.5 MB, so uploads are limited to 4 MB (+ multipart overhead).
+  experimental: { serverActions: { bodySizeLimit: "4.4mb" } },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
   },

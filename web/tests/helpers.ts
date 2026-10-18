@@ -1,9 +1,9 @@
-import path from "node:path";
 import { createHmac, randomUUID } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { createTestDb, type Db } from "@/db/client";
 import { products, productVariants, shippingMethods } from "@/db/schema";
 import { seedCatalog } from "@/server/seed";
+import { LEGACY_CATALOG } from "./fixtures/legacy";
 import { setPaystackFetchForTesting, type VerifiedTransaction } from "@/server/paystack";
 
 export const TEST_SECRET = "sk_test_unit_secret";
@@ -14,7 +14,7 @@ delete process.env.RESEND_API_KEY;
 
 export async function seededDb(): Promise<Db> {
   const db = await createTestDb();
-  await seedCatalog(db, path.join(__dirname, "..", "..", "config.js"));
+  await seedCatalog(db, LEGACY_CATALOG);
   await db.update(shippingMethods).set({ isActive: true, feeKobo: 500_000 }).where(eq(shippingMethods.name, "Nationwide delivery (Nigeria)"));
   return db;
 }

@@ -15,7 +15,7 @@ beforeAll(async () => {
 });
 
 describe("catalogue import", () => {
-  it("imports every real product from the original config.js", async () => {
+  it("imports every product in the catalogue it is given", async () => {
     const all = await db.select().from(products);
     expect(all).toHaveLength(43);
     expect(all.filter((p) => p.kind === "service").map((p) => p.name).sort()).toEqual(["Custom Install", "Straightening Service"]);

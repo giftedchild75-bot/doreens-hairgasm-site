@@ -6,7 +6,9 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { env } from "@/lib/env";
 
-const BASE = "https://api.paystack.co";
+const OFFICIAL = "https://api.paystack.co";
+/** PAYSTACK_BASE_URL exists only so end-to-end tests can use a local mock; live keys always use Paystack. */
+const base = () => (env.paymentsMode === "live" ? OFFICIAL : (process.env.PAYSTACK_BASE_URL ?? OFFICIAL));
 
 export type FetchLike = (url: string, init?: RequestInit) => Promise<Response>;
 let fetchImpl: FetchLike = (url, init) => fetch(url, init);
@@ -23,7 +25,7 @@ export class PaymentsDisabledError extends Error {
 
 async function call<T>(path: string, init: RequestInit = {}): Promise<T> {
   if (env.paymentsMode === "disabled") throw new PaymentsDisabledError();
-  const res = await fetchImpl(`${BASE}${path}`, {
+  const res = await fetchImpl(`${base()}${path}`, {
     ...init,
     headers: { Authorization: `Bearer ${env.paystackSecret}`, "Content-Type": "application/json", ...(init.headers ?? {}) },
     signal: AbortSignal.timeout(15_000),
