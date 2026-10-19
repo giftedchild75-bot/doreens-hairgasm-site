@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useBag } from "./CartProvider";
-import { BagIcon, Crown, SearchIcon, UserIcon } from "./Icons";
+import { BagIcon, Crown, HeartIcon, SearchIcon, UserIcon } from "./Icons";
+import { useSaved } from "./useSaved";
 
 const LINKS = [
   { href: "/shop", label: "Shop All" },
@@ -16,7 +17,22 @@ const LINKS = [
 
 export function SiteHeader({ whatsappHref }: { whatsappHref: string }) {
   const { count, ready } = useBag();
+  const saved = useSaved().slugs.length;
   const [open, setOpen] = useState(false);
+  const [pop, setPop] = useState(false);
+  const lastCount = useRef<number | null>(null);
+
+  // A little celebration on the bag icon whenever something new goes in.
+  useEffect(() => {
+    if (!ready) return;
+    if (lastCount.current !== null && count > lastCount.current) {
+      setPop(true);
+      const t = setTimeout(() => setPop(false), 650);
+      lastCount.current = count;
+      return () => clearTimeout(t);
+    }
+    lastCount.current = count;
+  }, [count, ready]);
   const pathname = usePathname();
 
   useEffect(() => setOpen(false), [pathname]);
@@ -41,7 +57,11 @@ export function SiteHeader({ whatsappHref }: { whatsappHref: string }) {
           <div className="nav-icons">
             <Link className="nav-icon hide-sm" href="/shop" aria-label="Search the collection"><SearchIcon /></Link>
             <Link className="nav-icon hide-sm" href="/account" aria-label="Your account"><UserIcon /></Link>
-            <Link className="nav-icon" href="/cart" aria-label={`Shopping bag, ${ready ? count : 0} items`}>
+            <Link className="nav-icon" href="/saved" aria-label={`Saved pieces, ${saved}`}>
+              <HeartIcon />
+              {saved > 0 && <span className="saved-count">{saved}</span>}
+            </Link>
+            <Link className={`nav-icon${pop ? " bag-pop" : ""}`} href="/cart" aria-label={`Shopping bag, ${ready ? count : 0} items`}>
               <BagIcon />
               {ready && count > 0 && <span className="bag-count">{count}</span>}
             </Link>
@@ -61,6 +81,7 @@ export function SiteHeader({ whatsappHref }: { whatsappHref: string }) {
         <nav className="mobile-menu-links" aria-label="Mobile">
           {LINKS.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
           <Link href="/account">Account</Link>
+          <Link href="/saved">Saved{saved > 0 ? ` (${saved})` : ""}</Link>
           <Link href="/cart">Bag{ready && count > 0 ? ` (${count})` : ""}</Link>
         </nav>
         <a className="btn btn-primary mobile-menu-cta" href={whatsappHref} target="_blank" rel="noopener">Chat on WhatsApp</a>

@@ -4,7 +4,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useBag } from "./CartProvider";
 import { formatNaira } from "@/lib/money";
+import { swatch } from "@/lib/swatch";
 import { track } from "./track";
+import { SaveButton } from "./SaveButton";
 
 export interface PurchaseVariant {
   id: string;
@@ -46,6 +48,11 @@ export function ProductPurchase(props: {
       localStorage.setItem(key, JSON.stringify([props.slug, ...list].slice(0, 8)));
     } catch {}
   }, [props.slug, props.productId]);
+
+  // Name the choice for what it is when every option differs by the same thing.
+  const byColour = variants.every((x) => x.color && x.title === x.color);
+  const byLength = !byColour && variants.every((x) => x.lengthInches && x.title === `${x.lengthInches}"`);
+  const optionLabel = byColour ? "Colour" : byLength ? "Length" : "Option";
 
   if (!v) return <p className="notice">This piece isn&apos;t available right now.</p>;
 
@@ -94,12 +101,15 @@ export function ProductPurchase(props: {
 
       {variants.length > 1 && (
         <div className="option-group">
-          <span id="variant-label">Option</span>
+          <span id="variant-label">{optionLabel}</span>
           <div className="filter-options" role="radiogroup" aria-labelledby="variant-label">
             {variants.map((x) => (
               <label className="filter-chip" key={x.id}>
                 <input type="radio" name="variant" value={x.id} checked={x.id === v.id} onChange={() => { setVariantId(x.id); setQty(1); }} />
-                <span>{x.title}{x.stockQuantity === 0 ? " — sold out" : ""}</span>
+                <span>
+                  {byColour && x.color && <i className="chip-swatch" style={{ background: swatch(x.color) }} aria-hidden="true" />}
+                  {x.title}{x.stockQuantity === 0 ? " — sold out" : ""}
+                </span>
               </label>
             ))}
           </div>
@@ -126,6 +136,7 @@ export function ProductPurchase(props: {
         {props.paymentsEnabled && (
           <button type="button" className="btn btn-outline" disabled={!canAdd} onClick={() => add(true)}>Buy now</button>
         )}
+        <SaveButton slug={props.slug} name={props.name} className="save-btn pdp-save" />
       </div>
       <p className="muted" style={{ fontSize: 13 }}>
         Prefer to chat? <a className="mini-link" href={props.whatsappHref} target="_blank" rel="noopener">Ask about this piece on WhatsApp</a>

@@ -42,7 +42,10 @@ export interface ProductCard {
   kind: "physical" | "service";
   specs: string[];
   image: { url: string; alt: string } | null;
+  hoverImage: { url: string; alt: string } | null; // second photo, revealed on hover
+  colors: string[]; // distinct buyable variant colours, in variant order
   priceKobo: number; // lowest effective price across active variants
+  priceVaries: boolean; // true when options cost different amounts ("From ₦…")
   compareAtKobo: number | null; // regular price when on sale
   inStock: boolean; // false only when every variant is tracked and at 0
   categorySlug: string | null;
@@ -70,11 +73,15 @@ async function cardsFor(db: Db, ids: string[]): Promise<ProductCard[]> {
     const vs = variants.filter((v) => v.productId === id);
     if (!vs.length) return [];
     const cheapest = vs.reduce((a, b) => ((a.salePriceKobo ?? a.priceKobo) <= (b.salePriceKobo ?? b.priceKobo) ? a : b));
-    const img = images.find((i) => i.productId === id);
+    const [img, img2] = images.filter((i) => i.productId === id);
+    const prices = vs.map((v) => v.salePriceKobo ?? v.priceKobo);
     return [{
       id, slug: r.p.slug, name: r.p.name, description: r.p.description, kind: r.p.kind, specs: r.p.specs,
       image: img ? { url: img.url, alt: img.alt || r.p.name } : null,
+      hoverImage: img2 ? { url: img2.url, alt: img2.alt || r.p.name } : null,
+      colors: [...new Set(vs.map((v) => v.color).filter((c): c is string => !!c))],
       priceKobo: cheapest.salePriceKobo ?? cheapest.priceKobo,
+      priceVaries: Math.min(...prices) !== Math.max(...prices),
       compareAtKobo: cheapest.salePriceKobo !== null ? cheapest.priceKobo : null,
       inStock: vs.some((v) => v.stockQuantity === null || v.stockQuantity > 0),
       categorySlug: r.cat,
@@ -157,6 +164,31 @@ export async function listCategories(db: Db) {
     .where(eq(categories.isVisible, true))
     .groupBy(categories.id)
     .orderBy(asc(categories.sortOrder));
+}
+
+/** One cover photo per visible category: the first image of its first published product. */
+export async function categoryCovers(db: Db) {
+  const rows = await db
+    .select({ cat: categories.slug, url: productImages.url, alt: productImages.alt, sort: products.sortOrder, pos: productImages.position })
+    .from(productImages)
+    .innerJoin(products, eq(products.id, productImages.productId))
+    .innerJoin(categories, eq(categories.id, products.categoryId))
+    .where(eq(products.status, "published"))
+    .orderBy(asc(products.sortOrder), asc(productImages.position));
+  const covers = new Map<string, { url: string; alt: string }>();
+  for (const r of rows) if (r.cat && !covers.has(r.cat)) covers.set(r.cat, { url: r.url, alt: r.alt });
+  return covers;
+}
+
+/** Every photo of every published piece, for the homepage lookbook reel. */
+export async function lookbook(db: Db, limit = 24) {
+  return db
+    .select({ url: productImages.url, alt: productImages.alt, slug: products.slug, name: products.name })
+    .from(productImages)
+    .innerJoin(products, eq(products.id, productImages.productId))
+    .where(and(eq(products.status, "published"), eq(products.kind, "physical")))
+    .orderBy(asc(productImages.position), asc(products.sortOrder))
+    .limit(limit);
 }
 
 /** Facet values that actually exist among published products (so we never show empty filters). */

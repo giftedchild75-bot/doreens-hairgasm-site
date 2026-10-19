@@ -6,7 +6,7 @@ import { clientIpFrom, json } from "@/server/http";
 import { sha256 } from "@/lib/tokens";
 
 // Purchases are NOT tracked here — they're counted from verified, paid orders.
-const NAMES = ["product_view", "search", "filter", "add_to_cart", "checkout_start", "shade_finder_complete"] as const;
+const NAMES = ["product_view", "search", "filter", "add_to_cart", "checkout_start", "shade_finder_complete", "save_item"] as const;
 const schema = z.object({
   name: z.enum(NAMES),
   sessionId: z.string().uuid().optional(),

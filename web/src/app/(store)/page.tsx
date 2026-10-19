@@ -1,7 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getDb } from "@/db/client";
-import { bestsellers, featuredProducts, listCategories, newArrivals } from "@/server/catalog";
+import { bestsellers, categoryCovers, featuredProducts, listCategories, lookbook } from "@/server/catalog";
 import { ProductCard } from "@/components/ProductCard";
+import { Lookbook } from "@/components/Lookbook";
 import { ShadeFinder } from "@/components/ShadeFinder";
 import { Newsletter } from "@/components/Newsletter";
 import { brand, env, whatsappLink } from "@/lib/env";
@@ -37,7 +39,9 @@ function Rail({ id, num, eyebrow, title, intro, items, cta }: {
 
 export default async function Home() {
   const db = await getDb();
-  const [featured, fresh, best, cats] = await Promise.all([featuredProducts(db, 8), newArrivals(db), bestsellers(db), listCategories(db)]);
+  const [featured, best, cats, covers, looks] = await Promise.all([
+    featuredProducts(db, 6), bestsellers(db), listCategories(db), categoryCovers(db), lookbook(db),
+  ]);
   const wa = whatsappLink("Hi Doreen! I'd love to place an order 💛");
   const payOnline = env.paymentsMode !== "disabled";
   const strip = ["Glueless Fit", "Wigs & Styling", brand.location, payOnline ? "Secure Online Checkout" : "Order on WhatsApp", "Nationwide & International Delivery"];
@@ -74,29 +78,33 @@ export default async function Home() {
         intro="Every piece fitted for a seamless, glueless wear — browse the full collection with search and filters."
         cta={{ href: "/shop", label: "Shop all pieces" }} />
 
-      {cats.length > 0 && (
+      {cats.some((c) => c.count > 0) && (
         <section className="section-tight" id="categories" style={{ background: "var(--blush)" }}>
           <div className="container">
             <div className="section-head" data-reveal>
               <div className="section-eyebrow">Shop by</div>
               <h2>Category &amp; Style</h2>
             </div>
-            <div className="why-grid">
-              {cats.filter((c) => c.count > 0).map((c) => (
-                <Link key={c.id} className="why-item" href={`/shop?category=${c.slug}`} data-reveal>
-                  <div className="num">{String(c.count).padStart(2, "0")}</div>
-                  <h3>{c.name}</h3>
-                  <p>{c.description}</p>
-                </Link>
-              ))}
-              <Link className="why-item" href="/shop?texture=curly" data-reveal><div className="num">✦</div><h3>Curls</h3><p>Bouncy, defined, vintage and afro curls.</p></Link>
-              <Link className="why-item" href="/shop?length=bob" data-reveal><div className="num">✦</div><h3>Bobs</h3><p>Polished, low-maintenance short cuts.</p></Link>
+            <div className="cat-grid">
+              {cats.filter((c) => c.count > 0).map((c) => {
+                const cover = covers.get(c.slug);
+                return (
+                  <Link key={c.id} className="cat-tile" href={`/shop?category=${c.slug}`}>
+                    {cover && <Image src={cover.url} alt="" fill sizes="(max-width: 720px) 45vw, 280px" />}
+                    <div className="cat-tile-body">
+                      <h3>{c.name}</h3>
+                      <span>{c.count} {c.count === 1 ? "piece" : "pieces"}</span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </section>
       )}
 
-      <Rail id="new" num="✦" eyebrow="Just In" title="New Arrivals" items={fresh} cta={{ href: "/shop?sort=newest", label: "See what's new" }} />
+      <Lookbook looks={looks} />
+
       <Rail id="bestsellers" num="✦" eyebrow="Most Loved" title="Bestsellers" items={best} cta={{ href: "/shop?sort=popular", label: "Shop bestsellers" }} />
 
       <section id="shade-finder" className="shade-finder">
