@@ -151,7 +151,10 @@ export const STORE_CATALOG: CatalogItem[] = [
     colorFamily: "black",
     specs: ["Pixie cut", "Black (brown, blonde, orange & wine on request)"],
     variants: [{ title: "Black", price: 26_000, color: "Black" }],
-    // Hidden as a draft until her 3 photos are added.
-    images: [],
+    images: [
+      { url: "/assets/products/pixie-cut-wig-1.jpg", alt: "Black Pixie Cut Wig worn with glasses" },
+      { url: "/assets/products/pixie-cut-wig-2.jpg", alt: "Pixie Cut Wig — curls styled by hand" },
+      { url: "/assets/products/pixie-cut-wig-3.jpg", alt: "Pixie Cut Wig — side view" },
+    ],
   },
 ];
