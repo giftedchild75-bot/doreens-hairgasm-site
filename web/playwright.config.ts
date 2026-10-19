@@ -8,6 +8,8 @@ const env = {
   PAYMENTS_ENABLED: "true",
   PAYSTACK_SECRET_KEY: "sk_test_e2e_mock",
   PAYSTACK_BASE_URL: "http://localhost:3199",
+  GOOGLE_CLIENT_ID: "e2e-client.apps.googleusercontent.com",
+  GOOGLE_CLIENT_SECRET: "e2e-secret",
 };
 
 export default defineConfig({

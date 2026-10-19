@@ -27,6 +27,16 @@ export const env = {
   get emailFrom() {
     return process.env.EMAIL_FROM ?? "";
   },
+  get googleClientId() {
+    return process.env.GOOGLE_CLIENT_ID ?? "";
+  },
+  get googleClientSecret() {
+    return process.env.GOOGLE_CLIENT_SECRET ?? "";
+  },
+  /** "Continue with Google" only appears once both OAuth credentials are set. */
+  get googleSignInEnabled() {
+    return Boolean(this.googleClientId && this.googleClientSecret);
+  },
   get whatsappNumber() {
     return process.env.WHATSAPP_NUMBER ?? "2349130213524";
   },

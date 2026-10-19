@@ -169,7 +169,8 @@ export const customers = pgTable("customers", {
   email: text("email").notNull().unique(), // stored lower-cased
   name: text("name"),
   phone: text("phone"),
-  passwordHash: text("password_hash"), // NULL for guest-only customers
+  passwordHash: text("password_hash"), // NULL for guest-only and Google-only customers
+  googleSub: text("google_sub").unique(), // Google's stable account id, set on first "Continue with Google"
   // Order history is only shown once the address is proven to belong to the account holder.
   emailVerifiedAt: timestamp("email_verified_at", { withTimezone: true }),
   createdAt: createdAt(),

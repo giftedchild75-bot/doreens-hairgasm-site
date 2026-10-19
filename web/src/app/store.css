@@ -44,6 +44,16 @@
 .notice.error { border-style: solid; border-color: #b3261e55; background: #fdecec; color: #8c1d18; }
 .notice.success { border-style: solid; border-color: #2e7d3255; background: #edf7ee; color: #1e5e22; }
 .muted { color: var(--muted); }
+
+/* Continue with Google */
+.btn-google {
+  width: 100%; justify-content: center; gap: 12px; margin-top: 8px;
+  background: var(--paper); color: var(--ink); border: 1px solid var(--onyx-line);
+  box-shadow: var(--shadow-float-sm);
+}
+.btn-google:hover { border-color: var(--burgundy); transform: translateY(-2px); box-shadow: var(--shadow-float); }
+.or-divider { display: flex; align-items: center; gap: 14px; margin: 24px 0 18px; color: var(--muted); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; }
+.or-divider::before, .or-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 
 /* Nav additions */
