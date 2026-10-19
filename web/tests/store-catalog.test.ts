@@ -24,7 +24,8 @@ describe("owner's catalogue", () => {
     const names = (await db.select({ n: products.name }).from(products)).map((r) => r.n).sort();
     expect(names).toEqual([
       "13x4 Swiss Frontal Lace", "Custom Install", "Deepwave Ponytail & Swiss Lace Frontal Combo", "Futura Wig",
-      "Messy Bun & Swiss Frontal Combo", "SDD Pixie Curls", "Straightening Service",
+      "Messy Bun & Swiss Frontal Combo", "Pixie Cut Wig", "SDD Bounce FW 5x5", "SDD Pixie Curls",
+      "SDD Vietnamese Bone Straight", "Straightening Service",
     ]);
   });
 
@@ -35,7 +36,13 @@ describe("owner's catalogue", () => {
     ]);
     const lace = await variantsOf("13x4-swiss-frontal-lace");
     expect(lace.vs.map((v) => [v.title, v.priceKobo / 100])).toEqual([['12"', 30000], ['14"', 35000], ['16"', 45000], ['18"', 55000]]);
-    expect((await variantsOf("futura-wig")).vs[0].priceKobo).toBe(7_000_000);
+    expect((await variantsOf("futura-wig")).vs.map((v) => [v.color, v.priceKobo / 100])).toEqual([["Burgundy", 70000], ["Black", 70000], ["Brown", 70000]]);
+    const vbs = await variantsOf("sdd-vietnamese-bone-straight");
+    expect(vbs.vs.find((v) => v.color === "Black")!.priceKobo / 100).toBe(140000);
+    expect(vbs.vs.filter((v) => v.color !== "Black").every((v) => v.priceKobo / 100 === 155000)).toBe(true);
+    expect(vbs.vs).toHaveLength(9);
+    expect((await variantsOf("sdd-bounce-fw-5x5")).vs.map((v) => [v.color, v.priceKobo / 100])).toEqual([["Black", 185000]]);
+    expect((await variantsOf("pixie-cut-wig")).vs.map((v) => [v.color, v.priceKobo / 100])).toEqual([["Black", 26000]]);
     expect((await variantsOf("deepwave-ponytail-swiss-lace-frontal-combo")).vs[0].priceKobo).toBe(5_800_000);
     expect((await variantsOf("messy-bun-swiss-frontal-combo")).vs[0].priceKobo).toBe(5_500_000);
   });

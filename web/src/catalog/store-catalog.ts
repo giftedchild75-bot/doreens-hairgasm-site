@@ -38,7 +38,7 @@ export const STORE_CATALOG: CatalogItem[] = [
   },
   {
     name: "SDD Pixie Curls",
-    description: "200g SDD Pixie Curls. Prices shown are for black. Burgundy and brown are also available — message us on WhatsApp for those.",
+    description: "200g SDD Pixie Curls. Price list is for black only. Burgundy and brown are also available — message us on WhatsApp for those.",
     kind: "physical",
     category: "wigs",
     texture: "curly",
@@ -54,7 +54,38 @@ export const STORE_CATALOG: CatalogItem[] = [
       { title: '24"', price: 420_000, lengthInches: 24, color: "Black" },
       { title: '26"', price: 445_000, lengthInches: 26, color: "Black" },
     ],
-    images: [],
+    // The owner asked for the burgundy photo to sit beside this price list.
+    images: [
+      { url: "/assets/products/sdd-pixie-curls-burgundy.jpg", alt: "SDD Pixie Curls in burgundy on a mannequin" },
+      { url: "/assets/products/sdd-pixie-curls-black.jpg", alt: "Long black SDD Pixie Curls worn in the salon" },
+    ],
+  },
+  {
+    name: "SDD Bounce FW 5x5",
+    description: "SDD bounce FW with a 5x5 closure. Price shown is for black. Also available in brown and burgundy — message us on WhatsApp for those.",
+    kind: "physical",
+    category: "wigs",
+    texture: "wavy",
+    colorFamily: "black",
+    specs: ["SDD", "5x5 closure", "Black (brown & burgundy on request)"],
+    variants: [{ title: "Black", price: 185_000, laceType: "5x5 closure", color: "Black" }],
+    images: [{ url: "/assets/products/sdd-bounce-5x5.jpg", alt: "SDD Bounce FW 5x5 — black bouncy waves worn in the salon" }],
+  },
+  {
+    name: "SDD Vietnamese Bone Straight",
+    description: "SDD Vietnamese bone straight with a 2x6 closure. Shown in orange. Available colours: tea brown, green, chestnut brown, burgundy, blonde, brown with blonde highlight, Cajun — 155k. Black only: 140k.",
+    kind: "physical",
+    category: "wigs",
+    texture: "straight",
+    colorFamily: "fashion",
+    specs: ["SDD", "Vietnamese bone straight", "2x6 closure"],
+    variants: [
+      { title: "Black", price: 140_000, laceType: "2x6 closure", color: "Black" },
+      ...["Orange", "Tea brown", "Green", "Chestnut brown", "Burgundy", "Blonde", "Brown with blonde highlight", "Cajun"].map((color) => ({
+        title: color, price: 155_000, laceType: "2x6 closure", color,
+      })),
+    ],
+    images: [{ url: "/assets/products/sdd-vietnamese-bone-straight-orange.jpg", alt: "SDD Vietnamese Bone Straight bob in orange" }],
   },
   {
     name: "Deepwave Ponytail & Swiss Lace Frontal Combo",
@@ -65,7 +96,7 @@ export const STORE_CATALOG: CatalogItem[] = [
     lengthGroup: "long",
     specs: ['Deepwave ponytail 30"', 'Swiss lace frontal 14"', "Combo"],
     variants: [{ title: "Default", price: 58_000, lengthInches: 30, laceType: "Swiss lace frontal" }],
-    images: [],
+    images: [{ url: "/assets/products/deepwave-ponytail-combo-1.jpg", alt: "Deepwave ponytail with Swiss lace frontal, worn" }],
   },
   {
     name: "13x4 Swiss Frontal Lace",
@@ -79,18 +110,25 @@ export const STORE_CATALOG: CatalogItem[] = [
       { title: '16"', price: 45_000, lengthInches: 16, laceType: "13x4 Swiss lace" },
       { title: '18"', price: 55_000, lengthInches: 18, laceType: "13x4 Swiss lace" },
     ],
-    images: [],
+    images: [
+      { url: "/assets/products/13x4-frontal-lace-1.jpg", alt: "13x4 Swiss frontal lace packs in 14\", 16\" and 18\"" },
+      { url: "/assets/products/13x4-frontal-lace-2.jpg", alt: "13x4 Swiss frontal lace packs held in hand" },
+    ],
   },
   {
     name: "Futura Wig",
-    description: 'Futura wig, 30", brown.',
+    description: 'Futura wig, 30". Available in burgundy, black and brown.',
     kind: "physical",
     category: "wigs",
+    texture: "wavy",
     lengthGroup: "long",
-    colorFamily: "brown",
-    specs: ['30" length', "Brown"],
-    variants: [{ title: "Default", price: 70_000, lengthInches: 30, color: "Brown" }],
-    images: [],
+    specs: ['30" length', "Burgundy, black or brown"],
+    variants: ["Burgundy", "Black", "Brown"].map((color) => ({ title: color, price: 70_000, lengthInches: 30, color })),
+    images: [
+      { url: "/assets/products/futura-wig-burgundy.jpg", alt: "Futura Wig in burgundy, 30 inches" },
+      { url: "/assets/products/futura-wig-black.jpg", alt: "Futura Wig in black, 30 inches" },
+      { url: "/assets/products/futura-wig-brown.jpg", alt: "Futura Wig in brown, 30 inches" },
+    ],
   },
   {
     name: "Messy Bun & Swiss Frontal Combo",
@@ -99,6 +137,21 @@ export const STORE_CATALOG: CatalogItem[] = [
     category: "ponytails",
     specs: ["Messy bun", 'Swiss frontal 14"', "Combo"],
     variants: [{ title: "Default", price: 55_000, laceType: "Swiss lace frontal" }],
+    images: [
+      { url: "/assets/products/messy-bun-combo-1.jpg", alt: "Messy bun with a 14\" Swiss frontal, in its pack" },
+      { url: "/assets/products/messy-bun-combo-2.jpg", alt: "Messy bun and frontal combo — four styled looks" },
+    ],
+  },
+  {
+    name: "Pixie Cut Wig",
+    description: "Pixie cut wig. Price shown is for black. Also available in brown, blonde, orange and wine — message us on WhatsApp for those.",
+    kind: "physical",
+    category: "wigs",
+    lengthGroup: "bob",
+    colorFamily: "black",
+    specs: ["Pixie cut", "Black (brown, blonde, orange & wine on request)"],
+    variants: [{ title: "Black", price: 26_000, color: "Black" }],
+    // Hidden as a draft until her 3 photos are added.
     images: [],
   },
 ];
