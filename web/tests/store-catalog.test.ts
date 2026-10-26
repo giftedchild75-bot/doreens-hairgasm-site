@@ -23,9 +23,9 @@ describe("owner's catalogue", () => {
   it("contains only the owner's current products and services (the 41-wig range is retired)", async () => {
     const names = (await db.select({ n: products.name }).from(products)).map((r) => r.n).sort();
     expect(names).toEqual([
-      "13x4 Swiss Frontal Lace", "Custom Install", "Deepwave Ponytail & Swiss Lace Frontal Combo", "Futura Wig",
-      "Messy Bun & Swiss Frontal Combo", "Pixie Cut Wig", "SDD Bounce FW 5x5", "SDD Pixie Curls",
-      "SDD Vietnamese Bone Straight", "Straightening Service",
+      "13x4 Swiss Frontal Lace", "Bouncy Ponytail & Swiss Lace Combo", "Custom Install", "Deepwave Ponytail & Swiss Lace Frontal Combo", "Futura Wig",
+      "Messy Bun & Swiss Frontal Combo", "Pixie Curls Fringe", "Pixie Cut Wig", "SDD Bob Wig (Factory Wig)", "SDD Bounce FW 5x5", "SDD Pixie Curls",
+      "SDD Vietnam Bone Straight 2x6 Closure Fringe", "SDD Vietnamese Bone Straight", "Straightening Service",
     ]);
   });
 
@@ -45,6 +45,15 @@ describe("owner's catalogue", () => {
     expect((await variantsOf("pixie-cut-wig")).vs.map((v) => [v.color, v.priceKobo / 100])).toEqual([["Black", 26000]]);
     expect((await variantsOf("deepwave-ponytail-swiss-lace-frontal-combo")).vs[0].priceKobo).toBe(5_800_000);
     expect((await variantsOf("messy-bun-swiss-frontal-combo")).vs[0].priceKobo).toBe(5_500_000);
+    const fringe = await variantsOf("sdd-vietnam-bone-straight-2x6-closure-fringe");
+    expect(fringe.vs.map((v) => [v.color, v.priceKobo / 100])).toEqual([
+      ["Cajun", 290000], ["Chestnut brown", 290000], ["Burgundy", 290000], ["Black", 290000], ["Blonde", 290000],
+    ]);
+    const bob = await variantsOf("sdd-bob-wig-factory-wig");
+    expect(bob.vs).toHaveLength(12);
+    expect(bob.vs.every((v) => v.priceKobo === 9_800_000 && v.lengthInches === 10)).toBe(true);
+    expect((await variantsOf("pixie-curls-fringe")).vs.map((v) => [v.title, v.priceKobo / 100])).toEqual([['14"', 158000]]);
+    expect((await variantsOf("bouncy-ponytail-swiss-lace-combo")).vs[0].priceKobo).toBe(7_000_000);
   });
 
   it("does not create buyable options she gave no price for", async () => {

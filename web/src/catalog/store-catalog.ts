@@ -85,7 +85,70 @@ export const STORE_CATALOG: CatalogItem[] = [
         title: color, price: 155_000, laceType: "2x6 closure", color,
       })),
     ],
-    images: [{ url: "/assets/products/sdd-vietnamese-bone-straight-orange.jpg", alt: "SDD Vietnamese Bone Straight bob in orange" }],
+    // 2026-10-23: she asked for the three mannequin photos to go "to the bone straight section".
+    images: [
+      { url: "/assets/products/sdd-vietnamese-bone-straight-orange.jpg", alt: "SDD Vietnamese Bone Straight bob in orange" },
+      { url: "/assets/products/sdd-vietnamese-bone-straight-brown.jpg", alt: "Brown bone straight bob on a mannequin — flawless finishing" },
+      { url: "/assets/products/sdd-vietnamese-bone-straight-blonde.jpg", alt: "Blonde bone straight bob with fringe on a mannequin" },
+      { url: "/assets/products/sdd-vietnamese-bone-straight-brown-fringe.jpg", alt: "Brown bone straight bob with fringe on a mannequin" },
+    ],
+  },
+  {
+    // Source: owner's WhatsApp post, 2026-10-23 9:08 pm.
+    name: "SDD Vietnam Bone Straight 2x6 Closure Fringe",
+    description: "SDD Vietnam bone straight with a 2x6 closure and fringe. Available in Cajun, chestnut brown, burgundy, black and blonde.",
+    kind: "physical",
+    category: "wigs",
+    texture: "straight",
+    lengthGroup: "long",
+    specs: ["SDD", "Vietnam bone straight", "2x6 closure", "Fringe"],
+    variants: ["Cajun", "Chestnut brown", "Burgundy", "Black", "Blonde"].map((color) => ({
+      title: color, price: 290_000, laceType: "2x6 closure", color,
+    })),
+    images: [{ url: "/assets/products/sdd-vietnam-bone-straight-fringe-cajun.jpg", alt: "SDD Vietnam Bone Straight with fringe in Cajun, worn in the salon" }],
+  },
+  {
+    // Source: owner's WhatsApp post, 2026-10-23 9:53 pm ("Factory wig / Sdd bob wig").
+    name: "SDD Bob Wig (Factory Wig)",
+    description: 'Factory wig — SDD bob wig, 10". Available in blonde, brown, burgundy without dark root, burgundy with dark root, black and grey. Available with or without fringe.',
+    kind: "physical",
+    category: "wigs",
+    texture: "straight",
+    lengthGroup: "bob",
+    specs: ['10"', "SDD", "Factory wig", "With or without fringe"],
+    variants: ["Blonde", "Brown", "Burgundy without dark root", "Burgundy with dark root", "Black", "Grey"].flatMap((color) =>
+      ["with fringe", "without fringe"].map((fringe) => ({ title: `${color}, ${fringe}`, price: 98_000, lengthInches: 10, color })),
+    ),
+    images: [
+      { url: "/assets/products/sdd-bob-wig-grey.jpg", alt: "SDD Bob Wig in grey with fringe, worn" },
+      { url: "/assets/products/sdd-bob-wig-blonde-dark-root.jpg", alt: "SDD Bob Wig in blonde with a dark root, worn in the salon" },
+    ],
+  },
+  {
+    // Source: owner's WhatsApp post, 2026-10-23 9:51 pm.
+    name: "Pixie Curls Fringe",
+    description: '14" pixie curls with fringe.',
+    kind: "physical",
+    category: "wigs",
+    texture: "curly",
+    colorFamily: "black",
+    specs: ['14"', "Pixie curls", "Fringe"],
+    variants: [{ title: '14"', price: 158_000, lengthInches: 14 }],
+    images: [{ url: "/assets/products/pixie-curls-fringe-14.jpg", alt: '14" pixie curls with fringe, worn' }],
+  },
+  {
+    // Source: owner's WhatsApp post, 2026-10-23 9:16 pm.
+    name: "Bouncy Ponytail & Swiss Lace Combo",
+    description: '18" bouncy ponytail and 14" Swiss lace combo.',
+    kind: "physical",
+    category: "ponytails",
+    texture: "wavy",
+    specs: ['Bouncy ponytail 18"', 'Swiss lace 14"', "Combo"],
+    variants: [{ title: "Default", price: 70_000, lengthInches: 18, laceType: "Swiss lace" }],
+    images: [
+      { url: "/assets/products/bouncy-ponytail-combo-2.jpg", alt: "Bouncy ponytail combo in its Doreen's Hairgasm packaging" },
+      { url: "/assets/products/bouncy-ponytail-combo-1.jpg", alt: "Bouncy ponytail combo — packed and styled looks" },
+    ],
   },
   {
     name: "Deepwave Ponytail & Swiss Lace Frontal Combo",
@@ -128,6 +191,10 @@ export const STORE_CATALOG: CatalogItem[] = [
       { url: "/assets/products/futura-wig-burgundy.jpg", alt: "Futura Wig in burgundy, 30 inches" },
       { url: "/assets/products/futura-wig-black.jpg", alt: "Futura Wig in black, 30 inches" },
       { url: "/assets/products/futura-wig-brown.jpg", alt: "Futura Wig in brown, 30 inches" },
+      // Added at the owner's request ("add these pictures to that futura wig column"). Pink is
+      // not one of her listed colours, so it is a photo only, not a buyable option.
+      { url: "/assets/products/futura-wig-pink-and-black-1.jpg", alt: "Futura Wigs in black and pink on a Doreen's Hairgasm box" },
+      { url: "/assets/products/futura-wig-pink-and-black-2.jpg", alt: "Futura Wigs in black and pink — which is your vibe?" },
     ],
   },
   {
