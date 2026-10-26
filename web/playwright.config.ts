@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3100;
+// Overridable so the suite can run while another local app holds 3100.
+const PORT = Number(process.env.E2E_PORT ?? 3100);
 const env = {
   DATABASE_URL: "pglite:./.data/e2e",
   SITE_URL: `http://localhost:${PORT}`,

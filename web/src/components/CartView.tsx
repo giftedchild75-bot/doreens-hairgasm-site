@@ -16,8 +16,11 @@ export function CartView({ paymentsEnabled, whatsappNumber }: { paymentsEnabled:
   if (bag.lines.length === 0) {
     return (
       <div className="empty-state">
-        <p>Your bag is empty.</p>
-        <Link className="btn btn-primary" href="/shop">Shop the collection</Link>
+        <p>Your bag is empty — let&apos;s find your next look.</p>
+        <p style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+          <Link className="btn btn-primary" href="/shop">Shop the collection</Link>
+          <Link className="btn btn-outline" href="/guide">New to wigs? Start here</Link>
+        </p>
       </div>
     );
   }

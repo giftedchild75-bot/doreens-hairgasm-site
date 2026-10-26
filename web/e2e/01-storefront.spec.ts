@@ -7,7 +7,7 @@ test.describe("storefront", () => {
     await expect(page.locator(".logo-script").first()).toHaveText("Hairgasm");
     // Approved hero image (salon, mannequin, branded bag) is used as-is.
     await expect(page.locator(".hero-media-img")).toHaveAttribute("src", "/assets/hero-install.jpg");
-    await expect(page.getByRole("heading", { name: /Luxury Hair/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Your hair/ })).toBeVisible();
     for (const id of ["#collection", "#shade-finder", "#why", "#featured", "#faq", "#order"]) {
       await expect(page.locator(id)).toHaveCount(1);
     }
@@ -21,7 +21,10 @@ test.describe("storefront", () => {
     await page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Shop All" }).click();
     await expect(page.getByRole("heading", { level: 1, name: "The Collection" })).toBeVisible();
     await page.goto("/about");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("About");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("your crown");
+    await page.goto("/guide");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Choosing your first unit");
+    await expect(page.locator("#lace, #length, #care")).toHaveCount(3);
     await page.goto("/contact");
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Contact Us");
   });
@@ -72,7 +75,7 @@ test.describe("storefront", () => {
     await page.getByRole("button", { name: "Increase" }).click();
     await expect(page.locator(".summary-row.total")).toContainText("₦140,000");
     await page.getByRole("button", { name: "Remove" }).click();
-    await expect(page.getByText("Your bag is empty.")).toBeVisible();
+    await expect(page.getByText(/Your bag is empty/)).toBeVisible();
   });
 
   test("services are booked on WhatsApp, not sold online", async ({ page }) => {

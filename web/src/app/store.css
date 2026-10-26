@@ -396,3 +396,4 @@ footer .foot-links { flex-wrap: wrap; justify-content: center; row-gap: 12px; }
 .start-card h3 { font-family: var(--serif); font-size: 22px; margin: 0 0 8px; color: var(--burgundy); }
 .start-card p { margin: 0 0 14px; font-size: 15px; }
 .start-card span { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+.page-head .cat-intro { color: var(--ink); margin-bottom: 8px; }

@@ -13,9 +13,9 @@ import { slugify } from "@/lib/slug";
 import { nairaToKobo } from "@/lib/money";
 
 export const CATEGORIES = {
-  wigs: { name: "Wigs", description: "Glueless, install-ready wigs.", sortOrder: 1 },
-  frontals: { name: "Frontals & Closures", description: "Swiss lace frontals and closures.", sortOrder: 2 },
-  ponytails: { name: "Ponytails & Combos", description: "Ponytails, buns and frontal combos.", sortOrder: 3 },
+  wigs: { name: "Wigs", description: "Bobs, bone straight, bouncy waves and curls — every length and colour priced on the page.", sortOrder: 1 },
+  frontals: { name: "Frontals & Closures", description: "Swiss lace frontals by length. Not sure which lace you need? See the wig guide.", sortOrder: 2 },
+  ponytails: { name: "Ponytails & Combos", description: "Ponytails and messy buns, paired with a Swiss lace frontal for a finished look.", sortOrder: 3 },
   services: { name: "Services", description: "Styling and installs by Doreen — booked on WhatsApp.", sortOrder: 4 },
 } as const;
 export type CategoryKey = keyof typeof CATEGORIES;

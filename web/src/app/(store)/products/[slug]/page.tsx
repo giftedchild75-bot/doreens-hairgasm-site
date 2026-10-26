@@ -106,6 +106,16 @@ export default async function ProductPage({ params, searchParams }: PageProps<"/
                     <table className="spec-table"><tbody>{specRows.map(([k, v]) => <tr key={k}><th scope="row">{k}</th><td>{v}</td></tr>)}</tbody></table>
                   </details>
                 )}
+                {p.kind === "physical" && (
+                  <details>
+                    <summary>Choosing &amp; care</summary>
+                    <p>
+                      Not sure which length, lace or colour suits you? Our <Link className="mini-link" href="/guide">wig guide</Link> explains
+                      each in plain words. Detangle gently from the ends, store on a stand or in the box, and ask us before using heat —
+                      we&apos;ll confirm hair type and safe styling for this piece. <Link className="mini-link" href="/guide#care">Care guide</Link>
+                    </p>
+                  </details>
+                )}
                 <details>
                   <summary>Delivery</summary>
                   <p>{deliveryInfo || "Delivery options and fees for your address are shown at checkout."}</p>

@@ -39,7 +39,8 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
   const db = await getDb();
   const [result, cats, facets] = await Promise.all([searchCatalog(db, q), listCategories(db), availableFacets(db)]);
   const active = Object.entries(q).filter(([k, v]) => v !== undefined && k !== "page" && k !== "sort");
-  const heading = cats.find((c) => c.slug === q.category)?.name ?? "The Collection";
+  const activeCat = cats.find((c) => c.slug === q.category);
+  const heading = activeCat?.name ?? "The Collection";
 
   const pageHref = (p: number) => {
     const sp = new URLSearchParams();
@@ -67,6 +68,7 @@ export default async function ShopPage({ searchParams }: PageProps<"/shop">) {
         <div className="page-head">
           <div className="section-eyebrow">Shop</div>
           <h1>{heading}</h1>
+          {activeCat?.description && <p className="cat-intro">{activeCat.description}</p>}
           <p aria-live="polite">
             {result.total} {result.total === 1 ? "piece" : "pieces"}
             {active.length ? " match your filters" : ""}
