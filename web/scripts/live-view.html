@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- Side-by-side desktop + phone view of the dev server, served at /dev/live
+     (src/app/dev/live/route.ts). Both frames hot-reload as code changes. ?url= sets the start page. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live View — Desktop + Phone</title>
+<style>
+  :root { --bg: #141114; --panel: #1f1a1f; --line: #3a2f38; --text: #f3e9ee; --muted: #a9949f; --accent: #b0245a; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, sans-serif; overflow: hidden; }
+  header { display: flex; gap: 8px; align-items: center; padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--line); height: 48px; }
+  header strong { color: var(--accent); white-space: nowrap; }
+  header input { flex: 1; min-width: 0; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; }
+  header button { background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: 7px 12px; cursor: pointer; }
+  header label { color: var(--muted); white-space: nowrap; }
+  main { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 16px; height: calc(100% - 48px); }
+  .pane { position: relative; min-width: 0; min-height: 0; display: flex; flex-direction: column; align-items: center; }
+  .cap { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .stage { position: relative; flex: 1; width: 100%; display: flex; justify-content: center; align-items: flex-start; }
+  .frame { transform-origin: top left; position: absolute; border: 0; background: #fff; }
+  .desktop .frame { border-radius: 8px; box-shadow: 0 0 0 1px var(--line), 0 12px 40px #0008; }
+  .phone .frame { border-radius: 36px; box-shadow: 0 0 0 10px #000, 0 0 0 11px var(--line), 0 12px 40px #0008; }
+</style>
+</head>
+<body>
+<header>
+  <strong>Live View</strong>
+  <input id="addr" aria-label="Address" spellcheck="false">
+  <button id="go">Go</button>
+  <button id="reload" title="Reload both">↻</button>
+  <label><input type="checkbox" id="sync" checked> Follow desktop</label>
+</header>
+<main>
+  <section class="pane desktop"><div class="cap" id="dcap"></div><div class="stage" id="dstage"><iframe class="frame" id="d" title="Desktop view"></iframe></div></section>
+  <section class="pane phone"><div class="cap" id="pcap"></div><div class="stage" id="pstage"><iframe class="frame" id="p" title="Phone view"></iframe></div></section>
+</main>
+<script>
+  const DESK = { w: 1440, h: 900 }, PHONE = { w: 390, h: 844 };
+  const $ = (id) => document.getElementById(id);
+  const start = new URLSearchParams(location.search).get("url") || location.origin + "/";
+  const d = $("d"), p = $("p"), addr = $("addr");
+
+  function layout() {
+    const mainH = innerHeight - 48 - 32 - 20;
+    // Phone first: fit its height, then give the desktop the rest of the width.
+    const ps = Math.min(1, mainH / PHONE.h);
+    Object.assign(p.style, { width: PHONE.w + "px", height: PHONE.h + "px", transform: `scale(${ps})` });
+    $("pstage").parentElement.style.width = PHONE.w * ps + 24 + "px";
+    const deskW = innerWidth - (PHONE.w * ps + 24) - 48;
+    const ds = Math.min(deskW / DESK.w, mainH / DESK.h);
+    Object.assign(d.style, { width: DESK.w + "px", height: DESK.h + "px", transform: `scale(${ds})`, left: Math.max(0, (deskW - DESK.w * ds) / 2) + "px" });
+    p.style.left = "12px";
+    $("dcap").textContent = `Laptop ${DESK.w}×${DESK.h} · ${Math.round(ds * 100)}%`;
+    $("pcap").textContent = `Phone ${PHONE.w}×${PHONE.h} · ${Math.round(ps * 100)}%`;
+  }
+
+  function open(url) { addr.value = url; d.src = url; p.src = url; }
+  // Same-origin frames (both on localhost:3000) let the phone follow desktop navigation.
+  d.addEventListener("load", () => {
+    try {
+      const u = d.contentWindow.location.href;
+      addr.value = u;
+      if ($("sync").checked && p.contentWindow.location.href !== u) p.src = u;
+    } catch { /* cross-origin page: nothing to follow */ }
+  });
+  $("go").onclick = () => open(addr.value);
+  addr.onkeydown = (e) => { if (e.key === "Enter") open(addr.value); };
+  $("reload").onclick = () => { d.contentWindow.location.reload(); p.contentWindow.location.reload(); };
+  addEventListener("resize", layout);
+  layout();
+  open(start);
+</script>
+</body>
+</html>

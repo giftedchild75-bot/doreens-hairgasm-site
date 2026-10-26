@@ -208,12 +208,22 @@ button.btn { border: none; cursor: pointer; font: inherit; }
 /* Footer now carries more links than the original — let them wrap. */
 footer .foot-links { flex-wrap: wrap; justify-content: center; row-gap: 12px; }
 
-@media (max-width: 360px) {
+/* Covers every phone width (360–400px) — the full header overflows at 375. */
+@media (max-width: 400px) {
   header.nav { padding: 0 8px; }
   .nav-inner, header.nav.is-scrolled .nav-inner { padding: 10px 8px 10px 14px; gap: 6px; }
   .logo-name { font-size: 12px; }
   .logo-script { font-size: 20px; }
   .nav-icon { width: 36px; }
+}
+/* Smallest phones (320px, e.g. iPhone SE 1st gen). */
+@media (max-width: 340px) {
+  .nav-inner, header.nav.is-scrolled .nav-inner { padding: 8px 6px 8px 10px; gap: 4px; }
+  .logo-crown { display: none; }
+  .logo-name { font-size: 11px; }
+  .logo-script { font-size: 18px; }
+  .nav-icon { width: 32px; }
+  .nav-toggle { width: 34px; height: 34px; }
 }
 
 /* ===================== Delight layer ===================== */

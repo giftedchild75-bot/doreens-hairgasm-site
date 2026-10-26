@@ -10,6 +10,18 @@ test.describe("mobile", () => {
     });
   }
 
+  // Real phones span 320–414px; the header used to overflow between 320 and 400.
+  for (const width of [320, 360, 375, 390, 414]) {
+    test(`header and pages fit a ${width}px phone`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 800 });
+      for (const path of ["/", "/shop", "/products/alicia"]) {
+        await page.goto(path);
+        const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+        expect(overflow, `${path} at ${width}px`).toBeLessThanOrEqual(0);
+      }
+    });
+  }
+
   test("menu opens, navigates and closes", async ({ page }) => {
     await page.goto("/");
     await page.getByRole("button", { name: "Open menu" }).click();

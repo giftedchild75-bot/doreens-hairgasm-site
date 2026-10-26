@@ -24,7 +24,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    // In development the side-by-side desktop/phone viewer (scripts/live-view.html) frames the site.
+    const dev = process.env.NODE_ENV === "development";
+    const headers = dev ? securityHeaders.filter((h) => h.key !== "X-Frame-Options") : securityHeaders;
+    return [{ source: "/:path*", headers }];
   },
 };
 
