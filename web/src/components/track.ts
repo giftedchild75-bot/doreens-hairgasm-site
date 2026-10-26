@@ -1,6 +1,16 @@
 "use client";
-/** First-party, cookie-less event tracking. Session id lives in sessionStorage only. */
+import { metaPixelEvent } from "./MetaPixel";
+
+/**
+ * First-party, cookie-less event tracking. Session id lives in sessionStorage only.
+ * Events are also forwarded to the Meta Pixel when the visitor has consented to it.
+ */
 export function track(name: string, props: Record<string, unknown> = {}, productId?: string) {
+  try {
+    metaPixelEvent(name, props);
+  } catch {
+    /* analytics must never break the page */
+  }
   try {
     let sid = sessionStorage.getItem("dh_sid");
     if (!sid) {

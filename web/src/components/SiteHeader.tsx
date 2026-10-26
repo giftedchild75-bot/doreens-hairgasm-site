@@ -9,6 +9,7 @@ import { useSaved } from "./useSaved";
 const LINKS = [
   { href: "/shop", label: "Shop All" },
   { href: "/shop?category=wigs", label: "Wigs" },
+  { href: "/guide", label: "Wig Guide" },
   { href: "/shop?category=services", label: "Services" },
   { href: "/#shade-finder", label: "Find Your Shade" },
   { href: "/about", label: "About" },

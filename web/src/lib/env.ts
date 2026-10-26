@@ -40,6 +40,14 @@ export const env = {
   get whatsappNumber() {
     return process.env.WHATSAPP_NUMBER ?? "2349130213524";
   },
+  /**
+   * Meta Pixel ID (digits only, from Meta Events Manager). Public by nature — it
+   * ships in the page — but only loads after the visitor accepts the consent banner.
+   */
+  get metaPixelId() {
+    const id = (process.env.META_PIXEL_ID ?? "").trim();
+    return /^\d{6,20}$/.test(id) ? id : "";
+  },
   get reservationMinutes() {
     return Number(process.env.STOCK_RESERVATION_MINUTES ?? 60);
   },

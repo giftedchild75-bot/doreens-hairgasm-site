@@ -43,8 +43,9 @@ export default async function Home() {
     featuredProducts(db, 6), bestsellers(db), listCategories(db), categoryCovers(db), lookbook(db),
   ]);
   const wa = whatsappLink("Hi Doreen! I'd love to place an order 💛");
+  const help = whatsappLink("Hi Doreen! Can you help me choose? My budget is … and I like …");
   const payOnline = env.paymentsMode !== "disabled";
-  const strip = ["Glueless Fit", "Wigs & Styling", brand.location, payOnline ? "Secure Online Checkout" : "Order on WhatsApp", "Nationwide & International Delivery"];
+  const strip = ["Prices on every piece", "Photographed in our studio", brand.location, payOnline ? "Secure checkout by Paystack" : "Order on WhatsApp", "Nationwide & international delivery", "Since 2021"];
 
   return (
     <>
@@ -57,12 +58,12 @@ export default async function Home() {
         <div className="hero-glow" id="hero-glow" aria-hidden="true" />
         <div className="hero-overlay">
           <div className="hero-copy">
-            <div className="eyebrow">Wigs · Styling · Custom Installs</div>
-            <h1>Luxury Hair,<br /><em>Effortless</em> Confidence.</h1>
-            <p className="lead">Glueless wigs and expert styling built for a flawless, natural fit — from affordable everyday essentials to exotic showstoppers. Handpicked, install-ready, and made to turn heads.</p>
+            <div className="eyebrow">Wigs · Closures · Styling — {brand.location}</div>
+            <h1>Your hair,<br /><em>your crown.</em></h1>
+            <p className="lead">Wigs, frontals and ponytail combos, styled and photographed in our own studio. Every price is on the page — and a real person on WhatsApp will help you choose length, lace and colour before you buy.</p>
             <div className="hero-actions">
-              <Link className="btn btn-primary" href="/shop">Shop the Collection</Link>
-              <a className="link-underline" href={wa} target="_blank" rel="noopener">Order on WhatsApp</a>
+              <Link className="btn btn-primary" href="/shop">Shop the collection</Link>
+              <a className="link-underline" href={help} target="_blank" rel="noopener">Help me choose</a>
             </div>
           </div>
         </div>
@@ -74,8 +75,8 @@ export default async function Home() {
         </div>
       </div>
 
-      <Rail id="collection" num="02" eyebrow="The Collection" title="Signature Styles" items={featured}
-        intro="Every piece fitted for a seamless, glueless wear — browse the full collection with search and filters."
+      <Rail id="collection" num="02" eyebrow="The Collection" title="In the Studio Now" items={featured}
+        intro="Our current pieces, photographed as they are. Tap a style to see every length, colour and lace option with its price."
         cta={{ href: "/shop", label: "Shop all pieces" }} />
 
       {cats.some((c) => c.count > 0) && (
@@ -83,7 +84,7 @@ export default async function Home() {
           <div className="container">
             <div className="section-head" data-reveal>
               <div className="section-eyebrow">Shop by</div>
-              <h2>Category &amp; Style</h2>
+              <h2>Category</h2>
             </div>
             <div className="cat-grid">
               {cats.filter((c) => c.count > 0).map((c) => {
@@ -102,6 +103,21 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      <section className="section-tight" id="start-here">
+        <div className="container">
+          <div className="section-head" data-reveal>
+            <div className="section-eyebrow">New to wigs?</div>
+            <h2>Start Here</h2>
+            <p>Three things decide how a unit looks on you. Our guide explains each in a minute.</p>
+          </div>
+          <div className="start-grid">
+            <Link className="start-card" href="/guide#lace" data-reveal><h3>Lace</h3><p>Closure or frontal, 2x6 or 13x4 — what the numbers mean for your parting.</p><span>Read →</span></Link>
+            <Link className="start-card" href="/guide#length" data-reveal><h3>Length</h3><p>Where 10&quot;, 14&quot; and 30&quot; actually fall, and why curls sit shorter.</p><span>Read →</span></Link>
+            <Link className="start-card" href="/guide#care" data-reveal><h3>Care</h3><p>Simple habits that keep a unit looking fresh for longer.</p><span>Read →</span></Link>
+          </div>
+        </div>
+      </section>
 
       <Lookbook looks={looks} />
 
@@ -124,13 +140,13 @@ export default async function Home() {
           <div className="section-head" data-reveal>
             <div className="section-num" aria-hidden="true">04</div>
             <div className="section-eyebrow">The Difference</div>
-            <h2>Why Clients Choose Doreen</h2>
+            <h2>Why Shop With Doreen</h2>
           </div>
           <div className="why-grid">
-            <div className="why-item" data-reveal><div className="num">01</div><h3>Glueless, Comfortable Fit</h3><p>Designed to sit snug without adhesive — comfortable for all-day wear.</p></div>
-            <div className="why-item" data-reveal><div className="num">02</div><h3>Curated Colors</h3><p>From jet black to honey blonde and warm auburn — or a fully custom color of your choice.</p></div>
-            <div className="why-item" data-reveal><div className="num">03</div><h3>Real Client Results</h3><p>See real installs and transformations on our TikTok — no filters, just fit.</p></div>
-            <div className="why-item" data-reveal><div className="num">04</div><h3>Personal Service</h3><p>Just say hello on WhatsApp and tell us your budget — we&apos;ll help you find the perfect match, from affordable to exotic.</p></div>
+            <div className="why-item" data-reveal><div className="num">01</div><h3>Prices You Can See</h3><p>Every length, colour and lace option shows its own price. No guessing, no &ldquo;DM for price&rdquo;.</p></div>
+            <div className="why-item" data-reveal><div className="num">02</div><h3>Real Photos</h3><p>Our pieces are photographed in the studio and on clients, so you see the hair itself — not stock imagery.</p></div>
+            <div className="why-item" data-reveal><div className="num">03</div><h3>Help Before You Buy</h3><p>Unsure about lace, length or shade? Message us on WhatsApp and we&apos;ll talk you through it, one to one.</p></div>
+            <div className="why-item" data-reveal><div className="num">04</div><h3>Styling Under One Roof</h3><p>Straightening and custom installs by Doreen, so your unit can be finished exactly the way you want it.</p></div>
           </div>
         </div>
       </section>
@@ -162,8 +178,9 @@ export default async function Home() {
             <h2>Common Questions</h2>
           </div>
           <div className="faq-list">
-            <div className="faq-item" data-reveal><h3>Is this human hair?</h3><p>Every piece has full specs available — message us on WhatsApp with the item you&apos;re eyeing and we&apos;ll confirm hair type, length, and density before you order.</p></div>
-            <div className="faq-item" data-reveal><h3>How much does it cost?</h3><p>Every wig shows its price on the product page. Custom installs and styling services are quoted on WhatsApp, because they depend on what you&apos;d like done.</p></div>
+            <div className="faq-item" data-reveal><h3>Is this human hair?</h3><p>We confirm hair type piece by piece. Message us on WhatsApp with the item you&apos;re eyeing and we&apos;ll tell you its hair type and density before you pay.</p></div>
+            <div className="faq-item" data-reveal><h3>Which length should I choose?</h3><p>Lengths are measured straight, in inches. As a guide, 10&quot; is a bob, 14&quot; sits near the shoulders and 18&quot;+ falls down the back. Curls sit shorter. <Link className="mini-link" href="/guide#length">Length guide</Link></p></div>
+            <div className="faq-item" data-reveal><h3>Can I get a colour that isn&apos;t listed?</h3><p>Some pieces come in more colours than we list for checkout — the product description names them. Message us on WhatsApp to order one of those.</p></div>
             <div className="faq-item" data-reveal>
               <h3>How do I order and pay?</h3>
               <p>{payOnline
@@ -172,7 +189,7 @@ export default async function Home() {
             </div>
             <div className="faq-item" data-reveal><h3>Do you deliver?</h3><p>Yes — we ship nationwide within Nigeria and internationally. Delivery options and fees for your address are shown at checkout, or message us for a quote.</p></div>
             <div className="faq-item" data-reveal><h3>Can I customize the color, length, or style?</h3><p>Yes — that&apos;s exactly what a Custom Install is for. Send a reference photo or describe the vibe, and we&apos;ll style it to match.</p></div>
-            <div className="faq-item" data-reveal><h3>How long will my install last?</h3><p>It depends on the unit and how it&apos;s cared for. Message us about the specific piece you&apos;re considering and we&apos;ll walk you through maintenance and what to expect.</p></div>
+            <div className="faq-item" data-reveal><h3>How long will my unit last?</h3><p>It depends on the unit and how it&apos;s cared for. Our <Link className="mini-link" href="/guide#care">care guide</Link> covers the basics, and we&apos;ll tell you what to expect from the specific piece you&apos;re considering.</p></div>
           </div>
         </div>
       </section>
@@ -192,8 +209,8 @@ export default async function Home() {
         <div className="container">
           <div className="order-card" data-reveal>
             <h2>Ready For Your<br />New Look?</h2>
-            <p>Not sure exactly what you want yet? Send a quick message on WhatsApp — tell us your budget and the vibe you&apos;re after, from affordable to exotic, and we&apos;ll take it from there.</p>
-            <a className="btn btn-primary" href={wa} target="_blank" rel="noopener">Order on WhatsApp</a>
+            <p>Tell us your budget and the look you&apos;re after. We&apos;ll suggest pieces from the collection and answer every question before you order.</p>
+            <a className="btn btn-primary" href={wa} target="_blank" rel="noopener">Chat on WhatsApp</a>
             <div className="contact-row">
               <a href={brand.instagramUrl} target="_blank" rel="noopener">Instagram</a>
               <a href={brand.tiktokUrl} target="_blank" rel="noopener">TikTok</a>

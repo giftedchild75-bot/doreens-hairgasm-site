@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { track } from "./track";
 
 import { NEWSLETTER_CONSENT_TEXT as CONSENT_TEXT } from "@/lib/consent";
 
@@ -17,6 +18,7 @@ export function Newsletter() {
     setState("busy");
     const res = await fetch("/api/newsletter", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: fd.get("email"), consent: true }) });
     const d = await res.json().catch(() => ({}));
+    if (res.ok) track("newsletter_signup");
     setState(res.ok ? "done" : "error");
     setMsg(d.message ?? (res.ok ? "You're subscribed." : "Something went wrong — try again."));
   }

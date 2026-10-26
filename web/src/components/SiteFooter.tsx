@@ -13,6 +13,7 @@ export function SiteFooter() {
         <p className="foot-tagline">Your Hair, Your Crown</p>
         <nav className="foot-links" aria-label="Footer">
           <Link href="/shop">Shop</Link>
+          <Link href="/guide">Wig Guide</Link>
           <Link href="/about">About</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/policies/delivery">Delivery</Link>

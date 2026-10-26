@@ -2,10 +2,11 @@ import { CartProvider } from "@/components/CartProvider";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteEffects } from "@/components/SiteEffects";
+import { MetaPixel } from "@/components/MetaPixel";
 import { WhatsAppIcon } from "@/components/Icons";
 import { getDb } from "@/db/client";
 import { getSetting } from "@/server/seed";
-import { whatsappLink } from "@/lib/env";
+import { env, whatsappLink } from "@/lib/env";
 
 export default async function StoreLayout({ children }: { children: React.ReactNode }) {
   const db = await getDb();
@@ -23,6 +24,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
         <WhatsAppIcon />
       </a>
       <SiteEffects />
+      {env.metaPixelId && <MetaPixel pixelId={env.metaPixelId} />}
     </CartProvider>
   );
 }
